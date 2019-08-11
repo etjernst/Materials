@@ -32,7 +32,7 @@ In the below, replace the square brackets with the relevant info (without the sq
 5. **Push** your changes to the GitHub repo:<br>
   `git push`
 
-**See below for how to modify this when working on a branch**
+**See next tutorial for how to modify this when working on a branch**
 
 ## Step 0 (a) - Setting up the first time you use git
 
@@ -114,8 +114,10 @@ _this will tell git that you are serious about these changes and want to commit 
 10. _Pull_ from the GitHub repo **just in case** anyone else made changes while you were working: `git pull` 
 _this will check if anyone else has made changes to the original repo (and this is why we will soon learn about branches)_
 11. _Push_ your changes to the GitHub repo: `git push`
+12. Go to our repo on GitHub. Somewhere on the left near the top there's a link that says "# commits" (where # is a number)
+13. Click on your recent commit. What do you see? 
 
-Hopefully that all goes well! If not, please feel free to shoot me emails with questions. 
+Hopefully that all goes well! If not, please feel free to shoot me emails with questions. <br>
 You can always include screenshots of what is going wrong, or refer me to a specific point in this doc where you got stuck! 
 Hopefully, though, it will all run smoothly!
 
