@@ -19,7 +19,7 @@ spend a lot of time working on (e.g. code).
 not that there are any dire consequences to committing, since you can always roll back to earlier versions)
 
 
-### Basic workflow (inspired by Grant McDermott's great [lecture notes](https://github.com/uo-ec607/lectures)):
+## Basic workflow
 In the below, replace the square brackets with the relevant info (without the square brackets)
 1. **Make** changes to a file & save them in your local clone
 2. **Stage** these local changes:<br>
@@ -34,7 +34,7 @@ In the below, replace the square brackets with the relevant info (without the sq
 
 **See below for how to modify this when working on a branch**
 
-### Step 0 (a) - Setting up the first time you use git
+## Step 0 (a) - Setting up the first time you use git
 
 Open up git bash, which should have come with the git installation. 
 
@@ -47,7 +47,7 @@ Check working directory (this will list where you are currently working)<br>
   `pwd` <br>
 To change the directory, you can either type in the location where you want to work or drag the folder into the bash window. If your filepath has spaces in it, you need to start and end it with these little single commas: ' ' 
    
-### Step 0 (b) - Clone the repo into a local directory on your computer
+## Step 0 (b) - Clone the repo into a local directory on your computer
  
 The main repo with code will live on GitHub, and then we work on a local clone, pulling and pushing our changes to GitHub.
 We will not sync data to GitHub (only code). There are a few reasons for this:
@@ -76,7 +76,7 @@ folder onto the git bash window)<br>
 **-- that's why I called these steps Step 0.** Once you've done all this, you can just _pull_, work on your computer, 
 save your work, _stage_ the changes, _commit_ those changes, and _push_ them.
 
-### Step 0 (c) - Committing
+## Step 0 (c) - Committing
 To collaborate on a repository, we need to introduce two main things: _commits_ and _branches_<br>
 I am starting with commits here.
 
@@ -119,3 +119,6 @@ Hopefully that all goes well! If not, please feel free to shoot me emails with q
 You can always include screenshots of what is going wrong, or refer me to a specific point in this doc where you got stuck! 
 Hopefully, though, it will all run smoothly!
 
+_Sources:_<br>
+* Grant McDermott's great [lecture notes](https://github.com/uo-ec607/lectures)
+* [Resources](https://github.com/worldbank/DIME-Resources) from the World Bank's DIME unit 
