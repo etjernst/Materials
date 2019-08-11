@@ -37,17 +37,21 @@ It will be easiest to collaborate if we work on different branches. I will mix i
 7. Add the pdf (you should be able to access it from campus) to a new folder in your branch on your local clone. 
 Call the folder Literature.
 8. Click on the link below the article saying "Cited by"
-![google-scholar](lemons.png)
+![google-scholar](../lemons.png)
+
 9. Select the box that says "Search within citing articles" and search for "Kenya"
 (this is a great way to find more papers -- if you know one paper that you like, you can find more recent ones that cite it).
 10. Pick a paper that sounds interesting, and add that to the literature folder as well.
-11. Stage, commit, and push your changes. <br>
-   > _Don't forget to _pull_ first & check the status of the local repo!_
-12. Go to our repo on GitHub and look for your changes. Don't see them? 
+11. Stage and commit (with comments) the changes that you have made so far (see below for some nice shortcuts)
+12. Add a file inside the Various folder (on your branch in your local clone) called tanvi_updates.md
+(you should be able to just open a new file text editor and then save the file with the .md file extension)
+13. Type the date and add a short summary of what you just did. Feel free to add any questions here too.
+14. Stage these changes, too.
+15. Commit (with comments) and push your changes.
+   > _Don't forget to pull first & check the status of the local repo!_
+16. Go to our repo on GitHub and look for your changes. Don't see them? 
 Look for a tab that says branches and switch to your branch. You should see them now.<br>
-<br>
-We can then merge these changes into the master branch, but let's save that for another day.
-
+   > What do you see?
 
 ### Some more git commands that might be useful at this point
 `git add -A` _stage all files_ <br>
