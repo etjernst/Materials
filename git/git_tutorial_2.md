@@ -2,8 +2,11 @@
 
 Branches are the killer feature of git. It's what distinguishes git as a powerful collaboration tool.<br>
 <br>
-Branches are awesome for many reasons:
-* They allow you to take a snapshot of your existing repo and try out a whole new idea without affecting your main 
+Branches = time travel & parallel universes:
+* Branches enable different people to work on the same thing at the same time.
+* Branches enable you to view different versions of your files.
+* In fact, branching allows you to _move forwards or backwards in time_; and to move "horizontally" in time through various concurrent versions.
+* You can essentially take a snapshot of your existing repo and try out a whole new idea without affecting your main 
 (i.e. "master") branch.
 * Once you (and your collaborators) are 100% satisfied, then you can merge this new test code back into the master branch.
 * This is how most new features in modern software and apps are developed but researchers can easily us it.
@@ -18,6 +21,18 @@ If you aren't happy, then you can just delete the experimental branch and contin
 <br>
 Research is a highly nonlinear process, and this way of doing version control is much more similar to how we actually work
 than the very linear way that Dropbox (for example) does version control.<br>
+We will mostly use branches with our names. But a branch can also be called something specific like newvardef.<br>
+
+To make sure we know what we are doing, we need to organize our commits and branches.<br>
+This is non-trivial.<br>
+You have to think in ways you are not used to thinking when you start
+using Git, so these workflows will not feel intuitive.<br>
+But they are worth learning, since Git will be less useful otherwise.<br>
+
+We will use a few main branches:
+1. [master] branch: protected, always "ready to run", and has sparse commits from [working]
+2. [working] branch is protected, "nearly" ready to run, and has frequent commits from [user] or [feature] branches
+3. [user] or [feature] branches are frequent, specific, personal, and hold all new work
 
 ## Step 1 - Make a branch
 
