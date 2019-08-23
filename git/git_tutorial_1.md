@@ -66,10 +66,10 @@ folder onto the git bash window)<br>
   or<br>
   `cd [localfilepath]`
 2. Tell git to clone everything that is on GitHub to a local directory 
-(this will create a folder called fertilizer_markets wherever you pointed to in the above command)<br>
-  `git clone https://github.com/etjernst/fertilizer_markets.git`
+(this will create a folder called [repo_name] wherever you pointed to in the above command)<br>
+  `git clone [file_path_here]`
 3. Now you want git bash to use that folder as your working directory, so tell it to do that<br>
-  `cd fertilizer_markets`
+  `cd [repo_name]`
 <br>
 
 **Note that you don't need to follow all these steps every time you work, only the first time** 
@@ -101,8 +101,8 @@ but first let's practice doing a little commit.<br>
 if you want to try any more fancy things (and for future reference).<br>
 2. Under collaborators, add your name to the file. `<br>` tells markdown that you want a new line. 
 3. Save the file.
-4. Add a folder in the repo called Various.
-5. Add your CV to that folder.
+4. Using git bash, add a folder in the repo called Various using `mkdir Various`, which will create the folder in the working directory.
+5. Manually add your CV to that folder (drag-and-drop or copy-paste the file).
 6. Go back into git bash.
 7. Check what changes have been made, by asking git the status of your local repository: `git status` 
 _you should see the changes pop up_
