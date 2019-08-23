@@ -20,7 +20,9 @@ not that there are any dire consequences to committing, since you can always rol
 
 
 ## Basic workflow
-In the below, replace the square brackets with the relevant info (without the square brackets)
+The steps below outline the general workflow of git.<br> 
+When you use them going forward you will replace the square brackets with the relevant info
+(without the square brackets) <br>
 1. **Make** changes to a file & save them in your local clone
 2. **Stage** these local changes:<br>
   `git add [file]`
@@ -45,7 +47,8 @@ Set your email<br>
 
 Check working directory (this will list where you are currently working)<br>
   `pwd` <br>
-To change the directory, you can either type in the location where you want to work or drag the folder into the bash window. If your filepath has spaces in it, you need to start and end it with these little single commas: ' ' 
+To change the directory, you can either type in the location where you want to work or drag the folder into the bash window. 
+If your filepath has spaces in it, you need to start and end it with these little single commas: ' ' 
    
 ## Step 0 (b) - Clone the repo into a local directory on your computer
  
@@ -61,15 +64,15 @@ So, we need to make a local clone! This is basically a local copy of everything 
 keeping track of everything that you are doing.
 
 1. Set the working directory to where you want to work from (again, you can either type the filepath or drag and drop the 
-folder onto the git bash window)<br>
+folder onto the git bash window) _This can be anywhere on your local computer._<br>
   `cd [filepath/drag file]`
   or<br>
   `cd [localfilepath]`
 2. Tell git to clone everything that is on GitHub to a local directory 
-(this will create a folder called [repo_name] wherever you pointed to in the above command)<br>
-  `git clone [file_path_here]`
+(this will create a folder called Tutorials wherever you pointed to in the above command)<br>
+  `git clone [file_path_here]`    _replace [file_path_here] with https://github.com/etjernst/Tutorials.git_
 3. Now you want git bash to use that folder as your working directory, so tell it to do that<br>
-  `cd [repo_name]`
+  `cd [repo_name]`    _replace [repo_name] with Tutorials_
 <br>
 
 **Note that you don't need to follow all these steps every time you work, only the first time** 
@@ -96,25 +99,27 @@ naming each version of a file _YYMMDD docname INITIALS.doc_... but much better!<
 In order to have multiple people working in the same repository, you also need to know how to _branch_, 
 but first let's practice doing a little commit.<br>
 
-1. In your local clone, open up the README.md file in a text editor. It is in markdown format, but is easy to edit in any text editor.
+1. In your local clone, open up the README.md file in a text editor. 
+It is in markdown format, but is easy to edit in any text editor.
 [Here](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) is a markdown cheat sheet 
 if you want to try any more fancy things (and for future reference).<br>
 2. Under collaborators, add your name to the file. `<br>` tells markdown that you want a new line. 
 3. Save the file.
-4. Using git bash, add a folder in the repo called Various using `mkdir Various`, which will create the folder in the working directory.
-5. Manually add your CV to that folder (drag-and-drop or copy-paste the file).
+4. Using git bash, add a folder in the repo called Various using `mkdir Various`, which will create the folder in the working directory. Then create a folder inside Various with your name. As you probably guessed, you will type `mkdir Various/your_name`. 
+5. Manually add your CV to the folder with your name (drag-and-drop or copy-paste the file).
 6. Go back into git bash.
 7. Check what changes have been made, by asking git the status of your local repository: `git status` 
 _you should see the changes pop up_
 8. _Stage_ the changes you just made in your local clone: `git add [file]` 
 _where file is the files you saw listed as changed above -- for now just add each file separately; 
-later we'll learn to do this with shortcuts_
+later we'll learn to do this with shortcuts
+You should see both the readme.md and your CV show up when you type `git status`._
 9. _Commit_ these local changes to your git history (with a helpful message!): `git commit -m "[very helpful message]"` 
 _this will tell git that you are serious about these changes and want to commit them to memory_
 10. _Pull_ from the GitHub repo **just in case** anyone else made changes while you were working: `git pull` 
 _this will check if anyone else has made changes to the original repo (and this is why we will soon learn about branches)_
 11. _Push_ your changes to the GitHub repo: `git push`
-12. Go to our repo on GitHub. Somewhere on the left near the top there's a link that says "# commits" (where # is a number)
+12. Go to the [Tutorials repo](https://github.com/etjernst/Tutorials) on GitHub. Somewhere on the left near the top there's a link that says "# commits" (where # is a number)
 13. Click on your recent commit. What do you see? 
 
 Hopefully that all goes well! If not, please feel free to shoot me emails with questions. <br>
