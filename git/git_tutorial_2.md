@@ -96,6 +96,10 @@ _I will mix in some research tips below as well._
 Look for a tab that says branches and switch to your branch. You should see them now.<br>
    > What do you see?
 
+---
+
+## Other stuff
+
 ### Some more git commands that might be useful at this point
 `git add -A` _stage all files_ <br>
 `git add -u` _stage updated files only (i.e., modified or deleted, but not new)_ <br>
