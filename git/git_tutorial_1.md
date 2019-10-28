@@ -60,8 +60,8 @@ When you use them going forward you will replace the square brackets with the re
   `git commit -m "[very helpful message]"`
 4. **Pull** from the GitHub repo *just in case* anyone else made changes too:<br>
   `git pull`
-  > I recommend always doing this even if you are working on your own!<br>
-  > But always commit or at least stash your changes before pulling from the remote
+   > I recommend always doing this even if you are working on your own!<br>
+   > But always commit or at least stash your changes before pulling from the remote
 5. **Push** your changes to the GitHub repo:<br>
   `git push`
 ---
