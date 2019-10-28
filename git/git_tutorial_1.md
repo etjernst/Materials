@@ -26,25 +26,25 @@ spend a lot of time working on (e.g. code).
   > I like to create the repo on GitHub and then clone it to whatever working directory you want to work out of.<br>
   > This means that the GitHub version is the remote origin folder and you are working in a copy on your computer.<br>
 * "Downloading" a repo to your local computer = _cloning_ the repo to your working directory
-> Ok, so why is "downloading" in scare quotes?<br> 
-> Well, the main difference between cloning and downloading is that when Git clones a repo, 
+  > Ok, so why is "downloading" in scare quotes?<br> 
+  > Well, the main difference between cloning and downloading is that when Git clones a repo, 
 it **remembers where you downloaded it from!**<br>
-> This is important because it means that git knows where to share any edits you make to files in the repo.<br>
-> More on how to clone below.
+  > This is important because it means that git knows where to share any edits you make to files in the repo.<br>
+  > More on how to clone below.
 * Folder location on your local computer = _working directory_
 * _Stage:_  before you commit you tell git what you want to commit by staging it (an intermediate step)
 * _Commit:_ git doesn’t make changes in its history (log) database unless we commit the files 
 (think of this as a "yes, I am sure I want to commit these changes" step -- 
 not that there are any dire consequences to committing, since you can always roll back to earlier versions)
-> Now, _committing_ in your working directory is going to tell the little git creature* that 
+  > Now, _committing_ in your working directory is going to tell the little git creature* that 
 you want to keep a record of what you just did. You commit to it.<br>
-> You should plan to commit every time you have completed something meaningful. Some examples:
->  * "Created a master .do file"
->  * "Fixed bug in cleaning code" 
->(\*) Anyway, that's how I think about it: a little gnome who watches what I do in the directory)
-But if you are working with others, or you worry about your computer getting stolen with all 
-your precious work on it, then you may want to sync these changes with the origin repo on GitHub.<br>
-> This also means that your collaborators will be able to see what you have done.
+  > You should plan to commit every time you have completed something meaningful.<br> Some examples:<br>
+  >  * "Created a master .do file"
+  >  * "Fixed bug in cleaning code"<br> 
+  > (\*) Anyway, that's how I think about it: a little gnome who watches what I do in the directory)<br>
+  > But if you are working with others, or you worry about your computer getting stolen with all 
+  > your precious work on it, then you may want to sync these changes with the origin repo on GitHub.<br>
+  > This also means that your collaborators will be able to see what you have done.
 * Syncing your changes with the origin repo = _pushing_ them
 * Syncing any changes that someone else might have made to the repo = _pulling_ them
 
@@ -100,8 +100,8 @@ folder onto the git bash window) _This can be anywhere on your local computer._<
   `cd [localfilepath]`
 2. Tell git to clone everything that is on GitHub to a local directory 
   `git clone [file_path_here]`    
-> replace [file_path_here] with https://github.com/etjernst/Tutorials.git<br>
-> (this will create a folder called Tutorials wherever you pointed to in the above command)<br>
+  > replace [file_path_here] with https://github.com/etjernst/Tutorials.git<br>
+  > (this will create a folder called Tutorials wherever you pointed to in the above command)<br>
 3. Now you want git bash to use that folder as your working directory, so tell it to do that<br>
   `cd [repo_name]`
   > replace [repo_name] with Tutorials
@@ -146,22 +146,23 @@ if you want to try any more fancy things (and for future reference).<br>
 3. Save the file.
 4. Using git bash, add a folder in the repo called Various using `mkdir Various`, which will create the folder in the working directory. 5. Create a folder inside Various with your name. As you probably guessed, you will type `mkdir Various/your_name`. 
 6. Manually add a .do file to the folder called test.do (you can drag-and-drop, copy-paste, or "save as" or whatever other way you prefer).
-> You can add whatever you usually add at the top of .do files if you have a template of some kind.
+  > You can add whatever you usually add at the top of .do files if you have a template of some kind.
 6. Go back into git bash.
 7. Check what changes have been made, by asking git the status of your local repository: `git status` 
-_you should see the changes pop up_
+  > You should see the changes pop up
 8. _Stage_ the changes you just made in your local clone: `git add [file]` 
-> Here \[file\] is the file you saw listed as changed above -- for now just add each file separately; 
+  > Here \[file\] is the file you saw listed as changed above -- for now just add each file separately; 
 later we'll learn to do this with shortcuts
-> You should see both the readme.md and your .do file show up when you type `git status`._
+  > You should see both the readme.md and your .do file show up when you type `git status`._
 9. _Commit_ these local changes to your git history (with a helpful message!): `git commit -m "[very helpful message]"` 
-> This will tell git that you are serious about these changes and want to commit them to memory
+  > This will tell git that you are serious about these changes and want to commit them to memory
 10. _Pull_ from the GitHub repo **just in case** anyone else made changes while you were working: `git pull` 
-> This will check if anyone else has made changes to the original repo (and is also why I introduce branches below)
+  > This will check if anyone else has made changes to the original repo (and is also why I introduce branches below)
 11. _Push_ your changes to the GitHub repo: `git push`
 12. Go to the repo that you cloned originally on GitHub. 
-> Somewhere on the left near the top there's a link that says "# commits" (where # is a number)
+  > Somewhere on the left near the top there's a link that says "# commits" (where # is a number)
 13. Click on your recent commit. What do you see? 
+
 
 > Hopefully that all goes well! If not, please feel free to shoot me emails with questions. <br>
 > You can always include screenshots of what is going wrong, or refer me to a specific point in this doc where you got stuck!<br>
@@ -181,8 +182,8 @@ Branches = time travel & parallel universes:
 * This is how most new features in modern software and apps are developed but researchers can easily us it.
 * Say you want to try a new way of creating a variable and see how that changes results.
 You can do that in a branch in order to not mess up the master branch. 
-> If you like the result you can merge your experiment with the main version of the code.<br>
-> BUT if you aren't happy, then you can just delete the experimental branch and continue as if nothing happened.
+  > If you like the result you can merge your experiment with the main version of the code.<br>
+  > BUT if you aren't happy, then you can just delete the experimental branch and continue as if nothing happened.
 
 ![Branches](https://github.com/etjernst/Materials/blob/master/branches.png)
 
@@ -262,11 +263,11 @@ To try this out:
 17. Finally, push the changes to the remote repo on GitHub using `git push origin [your-branch-name]`
 18. Go to our repo on GitHub and look for your changes. Do you see them?
 Look for a tab that says branches and switch to your branch. You should see them now.<br>
-   > What do you see?
+  > What do you see?
    
 19. When you eventually want to merge your changes in to one of the main branches,
 you do this with a pull request. I find that easiest to do directly on GitHub actually.
-I will then get a notification.
+  > I will then get a notification.
 
 ---
 
@@ -277,17 +278,17 @@ I will then get a notification.
 `git add -u` _stage updated files only (i.e., modified or deleted, but not new)_ <br>
 `git add .` _stage new files only (i.e. not updated)_ <br>
 <br>
-If you mess up but don't want to delete your branch, you can "overwrite" your branch with
-what is on the master. Make sure you are on your branch:<br>
+  > If you mess up but don't want to delete your branch, you can "overwrite" your branch with
+  what is on the master. Make sure you are on your branch:<br>
 `git checkout [yourbranch]` <br>
-Then basically overwrite it with the info on the master: <br>
+  > Then basically overwrite it with the info on the master: <br>
 `git pull origin master` <br>
 
 ### Some more branch-related options
 If you want to switch back to the master branch (or any other branch)<br>
 `git checkout master` <br>
-You can see what branch that you are at the end of the bottom line (in blue parentheses, at least on Windows) in git bash: <br>
-![git-bash](https://github.com/etjernst/Materials/blob/master/branch-checkout.png)
+  > You can see what branch that you are at the end of the bottom line (in blue parentheses, at least on Windows) in git bash: <br>
+  > ![git-bash](https://github.com/etjernst/Materials/blob/master/branch-checkout.png)
 
 <br>
 
