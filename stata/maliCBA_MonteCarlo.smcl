@@ -1,0 +1,193 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}Z:/Materials/stata/maliCBA_MonteCarlo.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res} 4 Dec 2019, 13:01:41
+{txt}
+{com}.         
+. * **********************************************************************
+. * 1 - Open enrollment data
+. * **********************************************************************
+. * Open data
+.         clear all
+{res}{txt}
+{com}.         import excel "$projectFolder/stata_dataset.xlsx", ///
+>         sheet("mk_stata") firstrow
+{res}{text}(35 vars, 999 obs)
+
+{com}. 
+. * Destring year variable
+.         destring year, replace
+{txt}year: all characters numeric; {res}replaced {txt}as {res}byte
+{txt}(973 missing values generated)
+{res}{txt}
+{com}.         lab var enroll "Raw data on enrollment"
+{txt}
+{com}.         
+. * Look at the data
+.         br              // ok, so there are a bunch of unnecessary rows; get rid of them
+{txt}
+{com}.         drop if mi(year)
+{txt}(973 observations deleted)
+
+{com}.         sum enroll      /* hm: the max is very, very weird - why are there fractional
+>         students in the school? */
+
+{txt}    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+{space 6}enroll {c |}{res}         26    337.7275    112.8973          0   401.9961
+{txt}
+{com}.         
+. * Since time series, time series setup
+.         tsset year
+{res}{txt}{col 9}time variable:  {res}{col 25}year, 0 to 25
+{txt}{col 17}delta:  {res}1 unit
+{txt}
+{com}. * What does enrollment look like over time?
+.         tsline enroll
+{res}{txt}
+{com}. 
+. * What are these values exactly?
+.         list year enroll /* ok, more questions: why does enrollment "stabilize"
+>         at 388.9? */    
+{txt}
+     {c TLC}{hline 6}{c -}{hline 11}{c TRC}
+     {c |} {res}year      enroll {txt}{c |}
+     {c LT}{hline 6}{c -}{hline 11}{c RT}
+  1. {c |} {res}   0           0 {txt}{c |}
+  2. {c |} {res}   1           0 {txt}{c |}
+  3. {c |} {res}   2   196.99807 {txt}{c |}
+  4. {c |} {res}   3   223.99781 {txt}{c |}
+  5. {c |} {res}   4   278.99727 {txt}{c |}
+     {c LT}{hline 6}{c -}{hline 11}{c RT}
+  6. {c |} {res}   5   299.99706 {txt}{c |}
+  7. {c |} {res}   6   382.99625 {txt}{c |}
+  8. {c |} {res}   7   382.99625 {txt}{c |}
+  9. {c |} {res}   8   401.99606 {txt}{c |}
+ 10. {c |} {res}   9   388.99619 {txt}{c |}
+     {c LT}{hline 6}{c -}{hline 11}{c RT}
+ 11. {c |} {res}  10   388.99619 {txt}{c |}
+ 12. {c |} {res}  11   388.99619 {txt}{c |}
+ 13. {c |} {res}  12   388.99619 {txt}{c |}
+ 14. {c |} {res}  13   388.99619 {txt}{c |}
+ 15. {c |} {res}  14   388.99619 {txt}{c |}
+     {c LT}{hline 6}{c -}{hline 11}{c RT}
+ 16. {c |} {res}  15   388.99619 {txt}{c |}
+ 17. {c |} {res}  16   388.99619 {txt}{c |}
+ 18. {c |} {res}  17   388.99619 {txt}{c |}
+ 19. {c |} {res}  18   388.99619 {txt}{c |}
+ 20. {c |} {res}  19   388.99619 {txt}{c |}
+     {c LT}{hline 6}{c -}{hline 11}{c RT}
+ 21. {c |} {res}  20   388.99619 {txt}{c |}
+ 22. {c |} {res}  21   388.99619 {txt}{c |}
+ 23. {c |} {res}  22   388.99619 {txt}{c |}
+ 24. {c |} {res}  23   388.99619 {txt}{c |}
+ 25. {c |} {res}  24   388.99619 {txt}{c |}
+     {c LT}{hline 6}{c -}{hline 11}{c RT}
+ 26. {c |} {res}  25   388.99619 {txt}{c |}
+     {c BLC}{hline 6}{c -}{hline 11}{c BRC}
+
+{com}. 
+. * **********************************************************************
+. * 2 - Define program to draw from triangular
+. * **********************************************************************
+. * Program to generate triangular distributions *
+. * 1 = minimum value     *
+. * 2 = mode (peak)   *
+. * 3 = maximum value *
+. * 4 = name of triangular variable generated *
+. 
+.         capture program drop Triangular
+{txt}
+{com}.         program define Triangular
+{txt}  1{com}.         local min = `1'
+{txt}  2{com}.         local mode = `2'
+{txt}  3{com}.         local max = `3'
+{txt}  4{com}.         local variable = "`4'"
+{txt}  5{com}.         local cutoff=(`mode'-`min')/(`max'-`min')
+{txt}  6{com}.         generate Tri_temp = uniform()
+{txt}  7{com}.         generate `variable' = `min' + sqrt(Tri_temp*(`mode'-`min')*(`max'-`min')) if Tri_temp<`cutoff'
+{txt}  8{com}.         replace `variable' = `max' - sqrt((1-Tri_temp)*(`max'-`mode')*(`max'-`min')) if Tri_temp>=`cutoff'
+{txt}  9{com}.         drop Tri_temp
+{txt} 10{com}.         end
+{txt}
+{com}. 
+. * **********************************************************************
+. * 3 - Define program to simulate net benefits
+. * **********************************************************************
+. /* Lines 31 - 37 in mcTriET.do show that you have to define another program
+>         to calculate the net benefits, and within that simulate a draw of the RV.
+>         What you were doing was just creating a scalar, mean_enrol,
+>         which equals the mean of enroll and then multiplying it by 488.41
+>         many many times!
+>         Your NPV program as it was written featured no random variables
+>         because you were drawing them outside of the program :) */
+. 
+.         cap prog drop NPV
+{txt}
+{com}.         prog def NPV, rclass
+{txt}  1{com}.         
+.         * Save data state
+.                 preserve
+{txt}  2{com}.                 
+.         * Find mean of enrollment
+.                 sum enroll
+{txt}  3{com}.                 scalar mean_enrol        = `r(mean)'
+{txt}  4{com}.                 scalar sd_enrol          = `r(sd)'
+{txt}  5{com}.                 scalar min_enrolment     =                      ///
+>                         ((mean_enrol - sd_enrol)>=0)*(mean_enrol - sd_enrol)
+{txt}  6{com}.                 scalar max_enrolment     = mean_enrol + sd_enrol
+{txt}  7{com}. 
+.         * Generate RV enrollment by drawing from the triangular distribution
+.                 Triangular min_enrolment mean_enrol max_enrolment enrol_rv
+{txt}  8{com}.                 lab var enrol_rv "Random draw from triangular distro (min, mode, max)"
+{txt}  9{com}.         
+.         * Generate a variable that multiplies enrollment by something
+.                 gen ben_rv = enrol_rv*488.41 + enrol_rv*10 + 4*254 + 488.41*10
+{txt} 10{com}.                 /* I don't understand where 488.41 & 10 come from, nor the other
+>                 numbers -- please add these as scalars above line 116 at the very least
+>                 and you might also consider making them random as well, depending. */
+.         lab var ben_rv "No idea what this is"
+{txt} 11{com}.         
+.         * Subtract an undefined number from ben_rv
+.         gen netbet = ben_rv - 4413528
+{txt} 12{com}.         lab var netbet "This is also not labeled"
+{txt} 13{com}.         
+.         * Discount netbet by 3%
+.         gen pvnb = netbet/((1.03)^year) //assuming 3% discount rate
+{txt} 14{com}.         lab var pvnb "Something something"
+{txt} 15{com}.         sum pvnb
+{txt} 16{com}.         return scalar total = r(sum)
+{txt} 17{com}.         
+.         * return to earlier data state
+.                 restore
+{txt} 18{com}. end
+{txt}
+{com}. 
+. 
+. * Use simulate to do this many times
+.         simulate npv_tri = r(total), reps (10000) nodots: NPV
+{p2colset 7 17 21 2}{...}
+
+{txt}{p2col :command:}NPV{p_end}
+{p2colset 7 17 21 2}{...}
+{p2col :npv_tri:}{res:r(total)}{p_end}
+
+
+{com}.         hist npv_tri, percent scheme(plotplain) xtitle ("Monte Carlo PVNB")
+{txt}(bin={res}40{txt}, start={res}-78355832{txt}, width={res}15393{txt})
+{res}{txt}
+{com}. 
+.         
+.         
+.         
+.         
+. log close       
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}Z:/Materials/stata/maliCBA_MonteCarlo.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res} 4 Dec 2019, 13:03:25
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}
