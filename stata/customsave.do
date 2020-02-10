@@ -1,9 +1,10 @@
 cap prog drop customsave
+
 program define customsave
 args description dataname dofilename filepath
 
 * Macro with today's date
-    local today "‘c(current_date)’"
+    local today "`'c(current_date)'"
 
 * Label data with a short description & today's date
     label data "`description' | `today'"
@@ -13,5 +14,5 @@ args description dataname dofilename filepath
 	created using `dofilename' | last modified: `today'
 
 * Save the data set in `filepath'
-    save "`filepath'", replace
+    save "`filepath'/`dataname'", replace
 end
