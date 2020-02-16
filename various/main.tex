@@ -1,0 +1,622 @@
+\documentclass[12pt,letterpaper]{article}
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{natbib}
+\usepackage[table]{xcolor}
+\usepackage{multirow}
+\setcitestyle{authoryear,open={(},close={)}}
+\usepackage{pdfpages} 
+%% Sets page size and margins
+\usepackage[top=3cm,bottom=2cm,left=2.54cm,right=2.54cm,marginparwidth=1.75cm]{geometry}
+
+%% Useful packages
+%\usepackage{verbatim}
+\usepackage{comment}
+\usepackage{threeparttable}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{amsmath}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\setlength{\parindent}{2em}
+\usepackage{setspace}
+\usepackage{hyperref}
+\setstretch{1}
+\usepackage{subcaption}
+% Move tables and figures to the end
+%\usepackage[nomarkers, nolists, tablesfirst]{endfloat}
+
+\begin{document}
+
+\author{Emilia Tjernstr\"om \thanks{University of Wisconsin-Madison, USA; tjernstroem@wisc.edu}
+\and
+Travis J. Lybbert\thanks{University of California, Davis; tlybbert@ucdavis.edu}
+\and 
+Rachel Frattarola Hern\'andez\thanks{Office of Management and Budget; Rachel.C.Hernandez@omb.eop.gov}
+\and 
+Juan Sebastian Correa\footnotemark[3]}
+
+
+\title{Learning by (virtually) doing: Experimentation and belief updating in smallholder agriculture\thanks{We are grateful to Matt Kimball and Tyler Lybbert for their help animating and programming \textit{MahindiMaster}. We also wish to thank Laura Schechter and Jen Alix-Garcia for helpful comments, David Cammarano and Christopher Kucharik for their assistance with crop modeling choices, as well as seminar audiences at the University of California - Davis, the University of Wisconsin - Madison, the 2018 AAEA Annual Meeting, and the USAID Global Development Lab for helpful comments. We also wish to thank our respondents for their enthusiasm, generosity and patience during the course of this research. This work was supported by the Michigan State University Global Center for Food Systems Innovations (GCFSI) and the Daniel Louis and Genevieve Rustvold Goldy Fellowship. The views expressed in this paper and any opinions and conclusions expressed herein are those of the author(s) and do not necessarily represent the views of the United States Government, the Administration, or the Office of Management and Budget. The pre-analysis plan for this study can be found at the \href{http://ridie.org/index.php?r=search/detailView&id=528}{Registry for International Development Impact Evaluations (RIDIE)}.}}
+
+\maketitle
+\thispagestyle{empty}
+\bibpunct{(}{)}{;}{a}{,}{,}
+
+{
+\centering
+\textbf{Abstract}
+}
+
+\vspace{.2in} 
+\noindent In much of sub-Saharan Africa, substantial soil quality heterogeneity hampers farmer learning about the returns to different inputs and can partly explain farmers' limited adoption of improved inputs in the region. We study how Kenyan farmers respond to an interactive app that enables them to discover agricultural input returns on a virtual plot calibrated to match their own. We find that farmers update both their beliefs and behaviors after engaging with the virtual learning app. We elicit farmers' subjective expectations about the returns to different inputs and find that on average farmers revise their beliefs about returns upwards after using the app. In addition, in an incentive-compatible experiment, we offered farmers an input budget to allocate across delivered inputs and the chance to update these allocations after playing several virtual seasons on the app. Farmers make significant revisions to their input allocations after the virtual learning experience. As evidence that these adjustments emerge from real learning, farmers with the highest predicted returns to lime---an unfamiliar input in this region---increase their lime orders more than others. Our results suggest that engagement with a personalized virtual platform can induce real learning and enhance  farmers' beliefs and technology choices. \\ JEL codes: D84, O12, O13
+
+\doublespace
+
+\newpage
+
+\section{Introduction}
+
+Three-quarters of poor households across the developing world live in rural areas and rely on agriculture as a source of income and food. Many of these subsistence farm households---especially in sub-Saharan Africa---cultivate their fields without modern inputs, achieving lower yields than they would under optimal management. While the literature has explored various explanations for these meager adoption rates (see \citealt{jack2011constraints} and \citealt{magruder2018assessment} for thorough reviews),
+%including psychological constraints \citep{abay_locus_2017},
+incomplete information often surfaces as an important constraint to adoption \citep{magruder2018assessment}. 
+
+Many pre-requisites precede a household's decision to adopt a new technology, but perhaps the most basic among them is knowledge about (i) the product's existence and (ii) the product's use and profitability. The literature examines a vast array of constraints that prevent households from adopting even when these pre-conditions are fulfilled, but our study design allows us to ignore many of them.\footnote{Common constraints in the literature include credit constraints, missing insurance markets, and farmer risk aversion. Our study design allows us to largely ignore the impacts of credit and insurance, and we control for risk aversion in our results.} Researchers have examined many types of information interventions, but we still know relatively little about how farmers form and update their subjective beliefs about the benefits of new products. This paper aims to fill part of that knowledge gap by studying how farmers respond to an app that lets them experiment with agricultural inputs on virtual plots calibrated to match their own. 
+
+We study the effects of customized information embedded in a virtual farming app on farmers' beliefs and behaviors. On average, farmers revise their beliefs about input returns upwards after interacting with the app. Since the sample farmers' beliefs about yields are lower than historical averages, this suggests that the learning is productive. Furthermore, using an incentive-compatible elicitation method, we find that farmers who were \emph{ex ante} expected to benefit from a new, unfamiliar input respond to information about it by allocating more money towards this new input.\footnote{Enumerators were blind to participants' predicted returns to the new technology.} 
+
+Our study setting is a particularly challenging context for learning. We study fertilizer adoption by maize farmers in Western Kenya, a region that is characterized by substantial heterogeneity in soil quality \citep{tittonell_yield_2008}. This heterogeneity hampers farmer learning in multiple ways: first, information diffusion by central agencies is difficult since regional fertilizer recommendations  will be inaccurate for most farmers. Second, while learning-by-doing and learning from others play important roles in the adoption of new technologies (see for example \citealt{foster_learning_1995} and \citealt{conley_learning_2010}), own-experimentation is both risky and costly. Further, each agricultural season typically yields only one observation. In some contexts, farmers can compensate by learning from their neighbors, but heterogeneous environments---such as our study setting---have been shown to limit farmers' ability to learn from others \citep{munshi_social_2004,tjernstrom_learning_2018}.
+
+% fertilizer use is not always profitable for smallholders \citep{duflo_how_2008,marenya_state-conditional_2009}. 
+%A recent policy recommendation to overcome the issue of soil quality heterogeneity has been to provide plot-level soil tests with input recommendations tailored to each plot. While this type of intervention could improve fertilizer application efficiency and agricultural output, farmers may not understand the recommendations or the potential yields gains.  As a result, farmers' ability to learn is limited. 
+
+% Households in developing countries typically face uncertainty in many domains of their lives. This is especially true of subsistence farming households whose livelihoods can be affected by unpredictable weather and pests each year. 
+
+%In developing countries, daily life is fraught with uncertainty. For poor farmers, the adoption of agricultural technologies has been slow, which can be partly attributed to heterogeneity and variability in these farmers' production conditions \citep{suri_selection_2011}. 
+
+This project set out to test an interactive ``gamified'' information intervention designed specifically to overcome these learning limitations. Drawing on design insights from the gamification literature, we designed an accessible app that animates output from a crop model to give farmers proxy-observations for various input combinations. The app, which we call \textit{MahindiMaster} (\textit{Mahindi} means maize in \textit{kiSwahili}), is played on a researcher-provided tablet. The game simulates yields for a menu of input options based on plot-level soil samples, historical weather data, and crop model outputs. The app allows farmers to experiment with three different fertilizers. The menu of options included one input that most farmers would be familiar with, a second input that only some farmers had experience with, and a third that would be unknown to most participants. 
+
+The most common input in the area is diammonium phosphate (DAP), followed by calcium ammonium nitrate (CAN). The third input, lime, is used to reduce soil acidity---a common problem in the area. This input was both unavailable and unfamiliar in the area at the time of our data collection.\footnote{Recently, a couple of NGOs have begun experimenting with lime provision in our study area. At the time of our study, the survey team had to travel to a limestone quarry where a company processes lime. At that time, the company had no plans to sell agricultural lime via local agrodealers.} Because acidic soils prevent maize from absorbing soil nutrients (including applied fertilizer), the returns to lime are  highest for farmers with acidic soils. At baseline, our sample farmers know little about their soil acidity or how lime affects acidity and enhances the production response to fertilizer. We are therefore particularly interested in examining how the information provided via the app affects beliefs about and purchases of lime. 
+
+Under uncertainty, we expect individuals to form beliefs and assign probabilities to potential outcomes \citep{delavande_probabilistic_2014}. Given the uncertainty surrounding fertilizer returns, farmers should have subjective expectations over the returns to different inputs. We elicit these beliefs before and after farmers' interactions with the app. We then study whether this new information about fertilizer returns leads farmers to revise their expectations. We also analyze whether the \textit{MahindiMaster} interaction induced behavior change by allowing farmers to allocate a researcher-provided budget across the three inputs (DAP, CAN, and lime) during a pre-intervention survey, and then allowing them to re-allocate their budget after interacting with the app.
+
+%The app can be thought of as an interactive information intervention. As such, we are interested in how farmers' interaction with the game, and the information it provides, shapes their beliefs.
+
+Our intervention builds on the recent literature on gamification in educational settings. Gamification is often defined as the use of game design elements in non-game contexts, and centers around changing the information flow that users receive \citep{walz_gameful_2015}. We use gamification primarily to provide new information to farmers and to display the new information in an interface that eases comprehension. We adhere to several gamification principles identified in the literature as best-practice: feedback should be quick, the goals clear,  each player's experience should be customized, and users should have the freedom to fail (see for example \citealt{simoes_social_2013, lee_gamification_2011,gordon_maximising_2013} for discussions of educational gamification design principles).\footnote{While there exists little rigorous empirical work on the effects of gamification on learning, the educational innovation literature is beginning to coalesce around some guiding principles.} Compared to a regular farming season, which lasts for months, \textit{MahindiMaster} users receive feedback in less than a minute. The goals are clearly outlined, and each user's simulations are based on their own field and historical weather data from their location. Being ``free to fail'' is key to our gamification approach. We explicitly aimed to eliminate the cost and risk of on-farm experimentation, and thereby encourage greater exploration and discovery. \footnote{Since we do not compare our app against a non-gamified alternative, we cannot rigorously test the impact of gamification. Instead, we borrow gamification principles, including rapid feedback, salience and freedom to fail, in the design of the app.}
+
+This study also relates to a broader literature examining information interventions. This literature spans many different domains and has produced mixed results. A variety of information-only interventions have yielded null effects: \citet{bryan_underinvestment_2014} study households' migration decisions in Bangladesh and find that information about migration opportunities does not affect household behavior. \citet{bettinger_role_2012} evaluate the effect of providing aid eligibility information to low-income families and find no significant effect.
+%with a caveat that the sample size of this group is much smaller than the other groups. 
+\citet{ashraf_information_2013} find that information about water purification products does not significantly increase product demand. \citet{marreiros_now_2017} experimentally study the effect of providing information about online privacy practices on the privacy decisions of participants. While participants in this study were less likely to share personal information after receiving privacy information, their attitudes towards privacy did not change. In contrast, \citet{dupas_teenagers_2011} finds that information interventions can be effective, but that the type of information matters. On the one hand, a national HIV/AIDS curriculum in Kenya had no effect on pregnancy or sexual partners' age. On the other, giving girls information about the relative risk of contracting HIV lowered pregnancy rates and the age gap between partners. 
+
+The limited success of information-only interventions may be due to a disconnect between information provision and actual behavior change. In some cases, this may be because the information provided was was not new, and therefore failed to induce belief updating. \citet{huffman_effects_2007} conduct a willingness to pay (WTP) experiment related to genetically modified foods. They find that more informed participants had a lower WTP than did uninformed participants. Conversely, uninformed participants were the most affected by new information. \citet{attanasio_education_2017} analyze survey data on young Mexican beneficiaries of \textit{J\'ovenes con Oportunidades}. The survey includes respondents' subjective expectations regarding the returns to education. Respondents believe that education will improve their labor market outcomes, and higher expectations about the returns to college are associated with higher probabilities of college enrollment. \citet{wiswall_how_2015} measure students' subjective expectations before and after providing them with an information treatment related to employment and earnings. The authors find that students exposed to the treatment revise their beliefs and that individuals' characteristics affect the degree to which they update. The notion that novel information is more likely to affect beliefs and behavior implies in our setting that information about the unknown agricultural input (lime, and to some extent CAN) may be particularly effective.
+
+Another potential explanation for the lack of response to information-only interventions is that individuals do not deem the information useful, even if it is new to them. We expect that farmer valuation of what they learn from the app to increase with the relevance to their context. In our case, we expect information about lime to be differentially effective depending on baseline soil acidity. Households with acidic soils (whose soils are unproductive without added lime) would be expected to react more strongly to the intervention. However, the empirical literature thus far suggests that this expectation is not always borne out. For example, \citet{hoffman_how_2016} examines the acquisition of costly information by industry experts. The study finds that individuals' WTP is actually larger for \textit{less} valuable signals \citep{hoffman_how_2016, ambuehl_belief_2018}. \citet{ambuehl_belief_2018} also find that individuals undervalue more informative information and that the degree of belief updating differs across individuals.
+
+%The authors show that overconfidence contributes to this effect by lowering WTP---but overconfidence does not explain the entire effect.  The authors argue that there is heterogeneity in responsiveness to information that affects how people value information. 
+
+The heterogeneous responses found in the literature may also help explain the attenuated impact of information interventions. Some studies focus on (over)confidence as an explanation. \citet{dessi_overconfidence_2018} hypothesize that overconfidence is endogenous, and that differences in the stability of an environment may affect the degree of overconfidence since overconfidence is not as beneficial in a stable environment as in a dynamic environment. The authors find that more stable countries have lower self-confidence measures, and argue that overconfidence should lead people to invest more in projects in dynamic environments but invest less in stable environments. \cite{barham_receptiveness_2018} examine the influence of two other individual characteristics on US farmers' technology adoption behaviors. They find that receptiveness to advice can either slow or speed up adoption, depending on agents' innate cognitive ability. We investigate how a few dimensions of individual characteristics (confidence and overconfidence) affects farmers' responsiveness to the \textit{MahindiMaster} advice. In line with past findings, we find that farmers whom we classify as overconfident update their beliefs less than do appropriately-confident farmers.
+
+% More broadly, there is an emerging literature that examines the effect and role of confidence in various outcomes.  \citet{deaves_dynamics_2010} analyze whether stock market forecasters, who receive feedback on the accuracy of their forecast, learn over time and improve their accuracy. In the sample, forecasters are overconfident---their confidence intervals are too narrow---but they do appear to adjust these intervals over time in response to being correct or incorrect in the previous forecast. \citet{kramer_financial_2016} focuses on the role of confidence in the demand for financial advice and finds that overconfident individuals are less likely to seek out financial information. Interestingly, overconfidence does not seem to affect the demand for financial information by retail bank investors. \citet{chen_role_2017} measure the effect of noncognitive skills and individual characteristics, including self-confidence, on academic and labor market outcomes using a sample of GMAT registrants. Higher verbal confidence is associated with a lower likelihood of obtaining an MBA for men, and higher quantitative confidence is associated with a lower likelihood of obtaining an MBA for women. Overall, the authors find that high quantitative confidence is associated with higher salaries for men (but has no effect for women). 
+
+While we do not have measures of cognitive ability, we also explore heterogeneity along the dimension of farming knowledge. Farmers who have more correct questions on a farming knowledge quiz tend to update their beliefs more than less knowledgeable farmers. Further, farmers who choose to answer ``I don't know'' to more quiz questions tend to update their beliefs more, suggesting that it does matter whether an individual knows what they do not know.
+
+
+\section{Data}\label{sec:data}
+
+\subsection{Sample}
+
+Our sample consists of 200 farmers from 19 villages in Western Kenya. These farmers were drawn from the rosters of a three-wave panel survey of 1,800 farm households. The households had previously taken part in a randomized control trial (RCT) of a newly-introduced hybrid seed variety. The RCT was designed to measure how access to a new hybrid variety affected yields and household incomes. This earlier study employed a research design that provided farmers in treatment villages with information about the seeds, as well as sample seed packs for experimentation.\footnote{\cite{niche_carter_2019} report the results of this study: receiving samples of a regionally appropriate hybrid maize seed variety increased hybrid adoption and maize yields, but with important heterogeneity by geographical area.} A second intervention, randomized at the household level provided farmers with high-quality fertilizer. Based on the findings of that earlier study, we expect that our sample farmers may have above-average baseline fertilizer adoption rates.
+
+To put the experimental design and data components of this study in context, the top panel of Figure \ref{fig:rainfall} shows the main agricultural seasons in Kenya. The rainfall distribution in most of Kenya is bimodal, with a main season beginning in March (with the harvest occurring in August or September) and a short season between October and December-January. For both the RCT and for the \textit{MahindiMaster} pilot, data collection and intervention timing centered around these agricultural seasons. In particular, the current study took place prior to the planting of the main season in 2017, so that  participating farmers would be able to apply their chosen inputs in the upcoming main season. 
+
+The bottom panel of Figure \ref{fig:rainfall} presents the timing of the app-based pilot intervention as well as the timing of the earlier RCT and the original household panel data collection. Throughout the paper, we refer to data coming from the RCT panel baseline survey as ``baseline data.'' In contrast, we refer to all survey questions asked before farmers interacted with the app as pre-game data, and those elicited after the interaction as post-game data.
+
+\begin{figure} 
+\vspace{-1cm}
+\centering Panel A 
+\hspace*{-.3cm}\centerline{\includegraphics[width=.60\paperwidth]{figures/rainfall_graph.png}} \par 
+\centering Panel B
+\centerline{\includegraphics[width=.6175\paperwidth]{figures/timeline.png}}
+\caption{Rainfall distribution in sample area and data collection timeline} \label{fig:rainfall}
+\end{figure}
+
+For budgetary reasons, we chose a convenience sample of villages in Western Kenya, south of Lake Victoria. The participants were drawn from the same rosters as the panel survey. The original sample was determined in 2013, by randomly choosing households with these villages from a complete listing of households, proportional to the size of the village within a circle drawn around a seed company demonstration plot.\footnote{For more details on the sampling and the RCT, please see \cite{niche_carter_2019}.} Some of the \textit{MahindiMaster} villages were in the RCT treatment villages, i.e. received sample packs of a maize hybrid; others were originally in control. Similarly, some households were randomly selected for the original fertilizer treatment arm, while others did not receive fertilizer in the original RCT. Given that our sample is a subset of a larger RCT, we can use information on previous fertilizer and hybrid seed use as well as past yields in our analysis.
+
+\subsection{Experimental design}
+
+In February and March 2017, enumerators visited the 19 villages in the sample and invited the households to a central location in the village. Farmers completed the pre-game questionnaire, which included a module on confidence and risk preferences. Farmers also allocated their input budget across DAP, CAN, and lime (henceforth called the pre-game allocation) and subsequently had the opportunity to play \textit{MahindiMaster}. Enumerators helped facilitate an initial one-on-one session, in which they walked farmers through some pre-defined screens in the app that illustrated how to navigate the game. Once farmers felt comfortable using the tablets and the app, they continued playing in semi-private. 
+
+Post-game, participants answered a number of questions measuring respondents' perceptions of the game and elicited farmers' post-game budget allocation, as well as post-game yield beliefs. Farmers then received their chosen post-game input amounts. Participants did not discuss the game with other farmers until they had made their final selection. Given the short amount of time that lapsed between participants' pre-game input selections and the post-game, we believe that the likelihood is minimal that any factors other than the game would influence the post-game selection, allowing us to attribute order updates to farmers' interactions with the game.
+
+\textit{MahindiMaster} is based on crop model simulations using the software DSSAT. Briefly, DSSAT uses soil characteristics, rainfall, temperature, and solar radiation as inputs to simulate crop yields (in our case maize yields) under different fertilizer types and application rates. We calibrated yields under a large combination of DAP, CAN, and lime rates, as well as under three different weather scenarios (low, medium, and good). In total, each household has a potential 972 simulations that they can observe within the game. Appendix \ref{sec:appendix-design} provides more details on the DSSAT modeling and our assumptions.
+
+The simulation results then get translated into \textit{MahindiMaster}, via a Unity-based Android application. The app first selects a specific farmer and then animates the simulation results. This enables farmers to receive tailored yield information in an accessible way. Farmers make choices within the game about the type of fertilizer, the amount of fertilizer, and rainfall scenario. The application animates key steps in the maize-growing process: planting, two separate fertilizer applications (DAP and CAN should be applied at different stages of the growing cycle), rainfall, and crop growth for each fictional season and then displays the expected yields. Together with the yields, the app also displays the cost per unit of harvest to enable profitability calculations. At the end of each fictional season, farmers can make a new fertilizer choice and simulate a new season. 
+
+The game play had a specific structure, in which farmers could choose levels of DAP (the most familiar fertilizer) in all rounds of the game. After three rounds, CAN became available, and lime was introduced after five rounds. The weather realizations were random for the first seven rounds, but after the seventh round, farmers also had a choice of weather scenario. Farmers were able to choose DAP and CAN in 25kg-intervals ranging from 0 to 125kg. Recommended lime application rates are much larger, so farmers selected lime in 250kg intervals ranging from 0 to 2000kg. Farmers had to play a minimum of nine fictional seasons. After the required rounds, they could continue playing for as long as they wanted. 
+
+Once farmers decided that they wanted to stop playing, they would play the final round. The final round was supposed to reflect farmers' updated fertilizer orders (these orders were also recorded separately by the enumerators when they handed out the chosen inputs). As farmers interacted with \textit{MahindiMaster}, the app recorded the number of rounds played, the random weather scenarios seen by farmers, their in-game input choices (type and amount), and their weather choices.
+
+Figure \ref{fig:screenshots} shows screenshots from \textit{MahindiMaster}. Figure \ref{fig:screen1} shows the selection screen when only DAP is available, \ref{fig:screen2} shows the animated hand applying fertilizer (which gets deposited into a hole, made with a stick on the previous screen), \ref{fig:screen3} shows the same hand depositing the seeds into the hole, and \ref{fig:screen4} shows the summary screen at the end of the season. The summary screen displays the yield that the selection resulted in, the rainfall scenario, and the realized cost per 90kg bag of maize (a common unit for measuring harvests). 
+
+\begin{figure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{figures/screen1.png}
+  \caption{Input selection}
+  \label{fig:screen1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{figures/screen2.png}
+  \caption{Fertilizer application}
+  \label{fig:screen2}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{figures/screen3.png}
+  \caption{Seed planting}
+  \label{fig:screen3}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{figures/screen4.png}
+  \caption{Harvest summary screen}
+  \label{fig:screen4}
+\end{subfigure}
+\caption{Screenshots from \textit{MahindiMaster} gameplay}
+\label{fig:screenshots}
+\end{figure}
+
+
+\subsection{Data sources}
+
+\subsubsection{Panel baseline data}\label{sec:panel_base_data}
+
+We use some information from the original panel baseline survey as control variables in our analysis. During the panel baseline in 2013, enumerators asked farmers about their hybrid seed and fertilizer use over the five years preceding the survey (for both the main and the short season). We use this information to create a measure of farmers' past experience with fertilizer. Specifically, we create two variables that measure the number of main and short seasons that farmers used fertilizer during the five years preceding the panel baseline survey.
+
+\subsubsection{Soil information}\label{sec:soil_sample_data}
+
+We collected soil samples from each household in October 2016. Our enumerators received training on soil sample collection from an ISO-certified soil testing lab in Nairobi, Kenya, who also carried out the sample analysis. We analyzed both macro and micro-nutrients in our samples, providing data on the soil's pH, cation exchange capacity (CEC), electric conductivity, organic matter, element levels (e.g. nitrogen, phosphorus), as well as micronutrients such as boron.
+
+We additionally have soil sample data from 2014 on the full panel sample, and during the earlier RCT all households received a printout of their soil's measurements. The printout further contained the soil testing lab's fertilizer recommendations for a set target yield for each field. While the research team simplified that information as much as possible, farmers do not appear to have understood most of the information. On the one hand, the anecdotes about the information being largely unused inspired this project. On the other, since all our sample farmers had already received their soil information, it helps boost our interpretation of the \textit{MahindiMaster} intervention as a gamification and learning intervention, rather than a pure information intervention.\footnote{The fact that the research team provided the input package was also likely important in observing behavior change. \cite{harou_sitespecific2018} report results from an RCT of soil information provision and find that information alone does not alter farmer investments in fertilizer. Only the treatment group that received a combination of liquidity and soil information update their behavior in a manner consistent with existing plot-specific soil nutrient limitations.}
+
+\subsubsection{Pre- and post-game data}\label{sec:pre_post_data}
+
+\textbf{Subjective expectations}
+
+\noindent Before and after farmers interacted with the app, enumerators elicited farmers' subjective expectations about yields under different input combinations for the maize field from which we collected soil samples. We followed standard methods for eliciting subjective expectations, which have by now been used in a variety of developing-country settings.\footnote{See \citet{delavande_eliciting_2011}, \citet{delavande_measuring_2011}, and \citet{delavande_probabilistic_2014} for an overview of eliciting subjective expectations in developing countries.} The first distribution was based on farmers' expected maize harvest if they applied no fertilizer at all. To obtain the lower bound of the support, we asked what yield they would expect to get in the worst year that they could imagine; the upper bound was similarly based on the best year that they could imagine. The data collection took place on tablets, which produced five bins based on these reported maximum and minimum harvests.
+
+Enumerators then gave farmers 20 beans (or maize kernels) to allocate across the bins. The enumerators explained to participants that the number of beans allocated to each bin represented the number of years out of the next twenty years that they thought their maize harvest would fall within that interval. 
+
+We repeated this elicitation for farmers' ``normal'' fertilizer application, i.e., what they apply in a representative year. We finally repeated the procedure for a yield distribution that combined ``normal'' fertilizer application rates with the addition of lime (henceforth the ``fertilizer-plus-lime'' belief distribution). During a pre-pilot, we found that farmers found it difficult to provide their beliefs about lime alone, as most of them were unfamiliar with the input. This joint belief elicitation allowed participants to express a flat or diffuse prior by saying that their beliefs did not differ from the ``normal'' fertilizer application rates.
+
+To compute the mean and variance of farmers' subjective yield distributions, we fit a distribution using 5 points from the elicitation procedure.\footnote{For respondents who were unable to state their subjective expectations about yields under fertilizer-plus-lime, we fill in the missing values with the fertilizer-only distribution.} To fit the distribution, we input the right endpoint for each bin and the probability assigned to each bin by the farmer (number of beans divided by 20) and input this information into a Matlab function. The function creates a CDF based on the probabilities. The endpoints for each bin become points on the $x-$ and $y-$axis in the cumulative probability. We fit a lognormal CDF to the five data points (the right endpoints for the bins), using nonlinear least squares. Since each farmer has a different CDF, we fit a different lognormal distribution to each farmer. We use the parameters from the fitted distribution to calculate the mean and variance of the subjective yields distribution for each farmer.\\
+\\
+\noindent \textbf{Farmer knowledge, confidence, and overconfidence}
+
+\noindent We elicit confidence and farming knowledge as part of the pre-game survey using a 10-question quiz related to general maize farming knowledge.\footnote{Our measure of confidence most closely relates to \citet{moore_trouble_2008}'s ``overestimation'' definition of confidence.} After answering the questions, farmers also had to guess how many questions they believed that they answered correctly. We compare the number of questions that farmers answered correctly to the number of questions farmers believed that they answered correctly. If farmers got the same number of quiz questions correct as they reported believing they got correct (plus or minus two questions), we consider the farmer ``appropriately confident.'' If the farmer believed that she answered more questions correctly than she did and the difference is greater than two, we consider the farmer ``overconfident.'' If the farmer believes that she answered fewer questions correctly than she did and the difference is greater than one, we would consider the farmer ``underconfident.'' Only two farmers are classified as underconfident in the sample, so our analysis uses a dummy variable that equals one if the farmer is overconfident and zero otherwise. 
+
+We elicit risk through a series of non-incentivized gambles and survey questions measuring subjective risk attitudes after farmers have interacted with the app. We choose these simpler methods of risk elicitation as recent evidence from Senegal suggests that rural populations often do not understand sophisticated risk elicitation methods very well \citep{charness_comprehension_2012}. In the non-incentivized gambles, farmers chose between two bags that contain balls of different values. The first bag contains one ball worth 3000 Kenyan Shillings (KES). The second bag contains two balls: one ball worth 5000KES, and a second ball that varies in value across rounds. In the first round, the ``random'' ball is worth 2500KES. Its value decreases by 500KES until the farmer chooses the first bag, or until the ``random'' ball is worth 500KES. Based on this elicitation procedure, we are able to rank farmers on risk preferences. We also ask farmers a series of questions about their willingness to take risk in general and on their farm. These ``stated'' risk questions are based on those used in the German Socio-Economic Panel but simplified for the developing country context.\footnote{\citet{dohmen_individual_2011} find that the general risk survey questions are strongly correlated with responses from incentivized lotteries.}
+
+\subsubsection{Incentive-compatible input orders}
+
+As part of the experimental session, we gave farmers an experimental budget of 5000 KES to allocate across three different fertilizers: DAP, CAN, and lime. We refer to this allocation as farmers' ``fertilizer order'' since the research team gave participants the exact amounts that they had ordered upon finishing the post-game questionnaire. As is common in experiments, the actual value of this budget was scaled down by a fixed factor that was known to farmers. After being scaled to real Kenyan Shillings (KES), the inputs provided were roughly sufficient to plant an experimental plot of 10x10 meters.\footnote{Farmers could also choose cash instead of fertilizer, but no farmers preferred cash over fertilizer.} Farmers placed their pre-game orders before interacting with the app, and then had the option to update their orders after they interacted with the game (post-game order). Since the research team provided farmers with fertilizer according to the scaled order, farmers had an incentive to truthfully report their preferences. We are especially interested in whether farmers update their orders after playing the game, which would suggest an updating of beliefs about the returns to different fertilizers.
+
+\section{Descriptive statistics}\label{sec:descriptive_stats}
+
+\subsection{Farmer characteristics}
+
+Panel A in Table \ref{tab: farmchar} presents descriptive statistics from our sample. Some measures are from the panel baseline survey (fertilizer and seed experience), others are from the pre-game questionnaire (sampled plot size, quiz performance, and confidence), and the soil sample data describes the 2016 soil sample results. On average, before any interactions with the survey team, farmers used fertilizer and hybrid seeds during two of the five long rain seasons. This suggests that some farmers are familiar with fertilizer use, but also that many do not use the input on a regular basis. Roughly half of farmers report using DAP in a modal year, and 40\% report using CAN. None of the sample farmers report having used lime, confirming our understanding that lime is relatively unknown and/or inaccessible in this region.
+
+The average pH on farmers' fields is 6.45, which is within the recommended range for maize farming (5.8 to 7). The lowest-pH plots, however, are substantially below the optimal range and well into the range where yields are likely starkly reduced from the acidity. Soil Cation Exchange Capacity (CEC) ranges from a low of around 6 to a high of almost 70, indicating that we have a wide range of soil types in the sample. For example, sandy soils tend to have low CEC values, and the measure increases roughly with the amount of clay, silt and organic matter present in the soil. Low-CEC soils hold on to less nutrients and water and fertilizer risks leaching out rapidly. 
+
+Most farmers performed poorly on the farming quiz. On average, participants answered less than three out of ten questions correctly and no respondents answered every quiz question correctly. Furthermore, farmers stated that they did not know the answer to roughly half the questions. Based on our metric of overconfidence, almost 60 percent of the sample is classified as overconfident. 
+
+Panel B summarizes farmers' behavior during their interactions with the app. Across the rounds in the game, farmers experimented with an average of 31.8 kg/acre of DAP, a common fertilizer in the area. Farmers chose to apply some amount of DAP in almost 80\% of seasons played. Farmers are on average less familiar with CAN, and they applied an average of 23.8 kg/acre across game rounds. Note that since farmers were only able to begin experimenting with CAN in round 3 of the game, this is an underestimate of how much they applied conditional on CAN being available as those rounds get recorded as zero here. Once CAN became available, farmers applied non-zero amounts of CAN in 81\% of the rounds. 
+
+Further, we can see that farmers generally experimented a fair bit with lime, a new and unfamiliar input to most farmers. On average, they applied almost 120 kg of lime across all rounds, and experimented with some amount of lime in 60\% of the rounds in which lime was available. Farmers played an average of 10.6 rounds, of which 9 were mandatory. Some farmers played the game without fertilizer---perhaps as a form of ground-truthing exercise. We also observe that farmers, when allowed to choose the type of weather to simulate, choose the good rainfall scenario a majority of the time. The rainfall scenario variable takes on a value of 3 for the good weather scenario, 2 for median, and 1 for the poor weather scenario. All in all, these descriptive game-play results indicate that farmers were willing to experiment with unfamiliar fertilizer inputs, and that many farmers played beyond the required rounds, suggesting interest in the game and in the information presented.
+
+\input{tables/farmchar.tex}
+
+\begin{comment}
+% We are also interested in how farmers perceive the information presented in the game. Farmers' perceptions of the game are presented in Table \ref{tab: gameper}. Self-reports suggest that 98 percent of farmers felt they learning something from the game, and ninety-six percent reported enjoying playing the game. These qualitative self-reports may be biased. Therefore, we complement the self-reported measures of learning with an analysis of whether farmers update beliefs about yields under different fertilizer scenarios after playing the game. In Table \ref{tab: gameper}, we also present farmers' perceptions of the planting sequence shown in the game and the similarity of in-game yields to those farmers would get on their actual field. We would only expect participants to update their beliefs if they have confidence in the information presented in the game. The majority of farmers report that the game planting sequence is not very different from how they plant in real life. The most commonly reported differences related to lime application, which farmers normally do not use, rainfall, and fertilizer placement and application method.\footnote{Farmers reported that CAN was applied too far from the plant in the game. Another difference is that fertilizer is applied with a spoon in the game, whereas farmers often apply fertilizer with their hands in real life.}
+
+% In terms of yields,  37 percent of farmers believe that the yields in the game were very different, either much higher or much lower, than what the farmers would get with the same inputs on their fields. The most common responses for why farmers' yields differ from those in the game were that crops in reality also face diseases that affect yields, rainfall in the game is higher, and there are pests that also affect yields.\footnote{Additional short answer responses include that the farmer has not been using fertilizer, the farmer uses low amounts of fertilizer, the field becomes flooded, the farmer uses a local seed variety, and striga affects the field.} We see that yields from the game are not consistently higher or lower for all farmers, although it appears that in-game yields are higher for a little over half of farmers. The game does not include pests or disease that may lower yields in real life and assumes that farmers use hybrid rather than local seed varieties.
+
+% \input{tables_comment/gameper.tex}
+\end{comment}
+
+\section{Empirical strategy}\label{sec:empirical_strategy}
+ 
+For this study, we registered a pre-analysis plan outlining hypotheses that focus on how farmers would update their beliefs about fertilizer and optimal inputs after playing \textit{MahindiMaster} and how individual farmers' characteristics could affect how they interact with the game and their subsequent belief updating. We also pre-registered a number of descriptive hypotheses (low-weight and low-prior hypotheses in the vocabulary of \cite{anderson_split-sample_2017}). \footnote{For transparency, the full set of hypotheses and the results of tests of those hypotheses can be found in the supplementary materials (Appendix \ref{sec:appendix-PAP} contains the online appendix).} We focus here three main groups of outcomes: formation and evolution of beliefs, changes to fertilizer orders, and experimentation within the app. 
+ 
+\subsection{Outcomes}
+ 
+\textit{Formation and evolution of beliefs:} Data on the formation and evolution of beliefs was elicited through subjective expectations. Before farmers interacted with the app, we elicited their expectations about the returns to fertilizer and fertilizer-plus-lime, which enables us to construct their prior distribution from which we calculate the mean and coefficient of variation. Similarly, we also elicit farmers' expectations after interacting with the game from which we construct the posterior distribution and calculate the mean and coefficient of variation. Another outcome of interest is how beliefs evolve which we measure using the percentage change in the mean of the subjective expectation distributions before and after interacting with the game. 
+ 
+\textit{Changes in behavior:} While we are interested in the updating of beliefs, we also want to know if farmers change their real-world behavior in response to any belief updating. We use the incentive compatible fertilizer orders as a measure of farmer behavior. Since farmers place orders before and after interacting with the app, we are able to measure the effect that the intervention had on farmer behavior. We measure changes to orders as the percentage change in the value of each fertilizer ordered before and after interacting with the game. Since many farmers did not order lime before interacting with the app, we also calculate the difference in the value of lime ordered (post-pre) instead of the percentage change. Given that lime is the main technology of interest, we also estimate the effect on the quantity of lime ordered. Since DAP is the most well-known fertilizer, we examine changes in the share of DAP in the order as well as the share of lime. 
+ 
+ \textit{Experimentation within the app:} We use the following outcome variables to measure experimentation within the game: share of rounds played with a positive amount of each input and whether the farmer played multiple final rounds. The share of rounds in the game played with familiar and unfamiliar inputs enables us to gauge the degree to which farmers experiment with new inputs. In the final round, farmers make their final fertilizer choice, which will be their fertilizer order. They are able to simulate yields with this choice and modify their choice as many times as desired. We measure this decision as a dummy variable that equals one if farmers play more than one final round and zero otherwise.
+ 
+ \subsection{Estimation}
+ 
+ We do not have a control group for the experiment and instead look at variation across farmers in our sub-sample and within-person beliefs in the periods before and after interacting with \textit{MahindiMaster}. To evaluate the effect of the intervention, we run a regression of post-treatment outcome on the pre-treatment outcome and farmer traits. We estimate the following equation using Ordinary Least Squares (OLS):
+ 
+ \begin{equation}
+ Post_i = \alpha + \beta Pre_i + \gamma Trait_i + \epsilon_i
+ \end{equation}
+ 
+\noindent In addition, given that the returns to lime are different across pH levels, we conduct a quasi-experiment where we treat farmers with low soil pH as the treatment group then run a difference-in-differences framework to analyze the effect of the treatment on these farmers. Maize is best grown in slightly acidic soil, and since lime increases soil pH, the application of lime would only be beneficial for farmers who have more acidic soil. Therefore, the group of farmers with lower pH levels would have the highest returns from using lime, the main new technology that we introduce in the app. We estimate two sets of regressions to analyze the effect of soil pH, allowing first for a quadratic relationship with pH, and secondly a more flexible specification with indicator variables for set ranges of pH.
+ 
+  \begin{equation}
+ Post_i = \alpha + \beta Pre_i + \gamma_{1} pH_i + \gamma_{2} pH_i^2 + u_i
+ \end{equation}
+ 
+ \begin{equation}
+ Post_i = \alpha + \beta Pre_i + \phi_{k} \sum_{k=1}^{5}pH_{i}^k + u_i
+ \end{equation}
+
+\noindent where the $pH_{i}^k$ are dummy variables that indicate whether farmer $i$'s pH is in one of five ranges of pH.\footnote{These ranges are pH $<5.5$, pH$\in(5.5,6)$, pH$\in(6,6.5)$, pH$\in(6.5,7)$, and pH$>7$.}
+ 
+ \section{Results}\label{sec:results}
+
+
+\subsection{Average effect of intervention on beliefs and behavior}\label{subsec:average_effect}
+
+Our main results focus on the effect of the intervention on beliefs and behavior. Table \ref{tab: fertorder} presents the raw data: farmers' fertilizer orders in kilograms pre- and post-game. Farmers update their fertilizer orders. The top panel shows mean values in kilograms, while the bottom shows the mean value of the order in Kenyan Shillings (KES). On average, we observe that DAP orders decrease after the intervention and that lime orders increase, with both changes being statistically significant. Before playing the game, 49 farmers placed a non-zero lime order, while 67 farmers placed a non-zero lime order after playing the game. Forty-three of the 67 farmers who ordered lime after the game ordered no lime at all before playing the game. This suggests that some farmers may have chosen to order lime before interacting with the game purely to experiment with it, and then changed their minds after interacting with the app. This switch would also be consistent with the app encouraging learning. 
+
+\input{tables/fertorder.tex}
+
+We can similarly test for differences in the pre- and post-game means of farmers' subjective expectation distributions for both fertilizer and fertilizer-plus-lime (see Table \ref{tab: subj ttest}). After farmers interact with \textit{MahindiMaster}, they update their beliefs about the returns to fertilizer. On average, farmers' belief revisions are upwards, as seen by the higher mean yields for fertilizer and fertilizer-plus-lime. The differences in means before and after game-play for fertilizer as well as fertilizer-plus-lime are statistically significant. We also test if the post-mean for fertilizer (8.64) is statistically different from the post-mean for fertilizer-plus-lime (9.74) ($t$-statistic: 4.26). Pre-game, these means are not statistically distinguishable ($t$-statistic: 0.88). Both the upward revisions to the means of the belief distributions and the divergence of fertilizer versus fertilizer-plus-lime are consistent with what we would expect, given our priors that farmers generally have sub-optimally low beliefs about fertilizer and little knowledge of the benefits of lime application.
+
+\input{tables/subj_ttest.tex}
+
+% \begin{comment}
+% \input{tables_comment/subj ttest_.tex}
+% \end{comment}
+
+% \begin{comment}
+% We present three scatter plots of elicited subjective expectations for no fertilizer, fertilizer, and fertilizer + lime scenarios in Figures \ref{fig:SEpre}-\ref{fig:SEfertlime}, where the means are measured in bags per acres. In Figure \ref{fig:SEpre}, we see that most farmers believe that fertilizer increases yields. We also find evidence of belief updating---the means of the subjective expectation distributions are higher after farmers interact with Mahindi Master.
+
+% \begin{figure} 
+% \caption{} \label{fig:SEpre}
+% \centerline{\includegraphics[width=10cm]{figures/premean.png}}
+% \end{figure}
+
+% \begin{figure}  
+% \caption{} \label{fig:SEfert}
+% \centerline{\includegraphics[width=10cm]{figures/fert.png}} 
+% \end{figure}
+ 
+% \begin{figure}  
+% \caption{} \label{fig:SEfertlime}
+% \centerline{\includegraphics[width=10cm]{figures/fertlime.png}} 
+% \end{figure}
+
+% \end{comment}
+
+As discussed in Section \ref{sec:empirical_strategy}, we are particularly interested in understanding whether the observed updating behavior reflects learning. We estimate this using a difference-in-differences method based on the hypothesis that households with high \textit{ex ante} expected returns to lime would respond more strongly to interacting with the game. In results available from the authors, we can see that a ``production function'' estimation shows that farmers with low pH received strong signals in the game about the returns to lime. Specifically, we regressed within-game yields in a given round on the chosen fertilizer levels, weather dummies, and interacted the chosen input levels with baseline pH. The interaction term between lime and pH is negative and significant across most specifications, suggesting that the game indeed revealed different marginal returns to lime for different types of farmers. 
+
+\input{tables/A3.tex}
+
+Table \ref{tab:A3} shows the regression estimates of the effect of soil pH on lime orders and lime order updating. Columns (1) and (2) show results when the dependent variable is the total amount of lime ordered after the game. In columns (3) and (4), the outcome variable is the share of the post-game order allocated to lime, and columns (5) and (6) show results for the difference in the value of the order post-game minus pre-game. The results consistently suggest that farmers with lower-pH plots allocate larger budget shares to lime and order more lime in terms of value and quantity. The results are not significant in columns (5) and (6), but the patterns are similar to the other regressions.
+
+\begin{figure}[H] 
+\caption{Average share of post-game order allocated to inputs, by soil pH} 
+\label{fig:ph}
+\hspace{-.5cm} \centerline{\includegraphics[width=1.27\textwidth]{figures/ph_dapcanlime.pdf}}
+\end{figure}
+
+Figure \ref{fig:ph} plots the predictive margins (marginal means) of the share of post-orders allocated to the different inputs for different bins of soil pH.\footnote{The plotted results correspond to column (4) in Table \ref{tab:A3} for lime, and the analogous results for DAP and CAN, which can be found in Appendix Table \ref{tab:ph_dapcanshare}} The interpretation is that the solid line shows the average share of post-orders that would be allocated to a particular input if all the farmers in the sample had a soil pH in that bin. If this average is the same across pH bins, then farmers do not seem to respond to pH in making their decisions about that paritcular input. We observe a negative gradient for lime in panel C, suggesting that farmers whose soil pH is acidic order more lime as a share of their total order, and that farmers who were already within the suitable range for maize order less lime. This suggests that most of our effects on lime order changes are due to the ``right'' farmers ordering more lime. We would not necessarily expect the same kind of gradient for DAP or CAN, and panels A and B of Figure \ref{fig:ph} show the share of post-game orders allocated to DAP and CAN, respectively. DAP post-game orders do not seem to vary with pH, and the budget share allocated to CAN after the intervention slightly increases with pH (panel B). This latter gradient may suggest that low-pH farmers substitute between CAN and lime.   
+
+%Fig share of lime post can be in sup materials. We probably don't need to report both the other two figures. Post orders is cleanest, but post-pre may be more compelling as an approach? Are there outliers in pre-orders that cause the wide CI at low pH in post-pre? 
+
+% \begin{comment}
+% \begin{figure}[htbp]
+% \caption{} \label{fig:ph1}
+% \centerline{\includegraphics[width=15cm]{figures/ph_limekg.png} }
+% \end{figure}
+
+% \begin{figure}[htbp]
+% \caption{} \label{fig:ph2}
+% \centerline{\includegraphics[width=15cm]{figures/ph_limediff.png} }
+% \end{figure}
+% \end{comment}
+
+\subsection{Effect heterogeneity}\label{subsec:effect_heterogeneity}
+
+We are also interested in understanding whether some farmers are more likely to respond to the intervention. To this end, we examine whether farmers with differing farming ability are differentially likely to update their orders. It is not clear how farming ability should interact with new information. If highly-skilled farmers already had precise information about the returns to different inputs, we might expect them to respond less to the new information. If instead, the better farmers (as measured by the quiz) are better-informed more generally, but lack plot-specific information on returns, then we might expect them to be better equipped to update in response to the information. 
+
+Tables \ref{tab:C2order} presents regression results analyzing these hypotheses. The dependent variable is the change in fertilizer orders and the variable of interest is farming quiz knowledge. The first three columns control only for the number of quiz questions that a farmer answered correctly, and it is negatively associated with DAP updating and positively associated with changing lime orders. Farmers who answer more questions correctly do not order different amounts of DAP or lime before interacting with the game, so the differences here are coming from the updating, not from the pre-game levels, which we also control for. However, this suggests that there is some correlation between belief updating and farming knowledge. Once we control for the number of questions that a farmer answered ``Don't know'' to in columns (4)-(6), the coefficient on changes in lime orders becomes insignificant. One possible interpretation of these results, overall, is that better-informed farmers (as measured by the quiz) are more responsive to novel information.
+% \begin{comment} Farmers with better farming quiz scores both order more lime post-game and update their lime orders much more than their poorly-informed peers. One possible interpretation of these results, taken together, is that better-informed farmers (as measured by the quiz) both have better information \textit{ex ante} and are more responsive to novel information.
+% \end{comment}
+%The change in DAP and CAN ordered is positive and significant in Table \ref{tab:C2order_dk}, while negative and insignificant for questions answered correctly. Finally, another interesting difference is the effect on lime orders. Answering questions correctly is associated with increases in the share and quantity of lime ordered, while answering ``don't know" is associated with decreases in the share and quantity of lime ordered.
+
+%Specifically for lime, we also examine whether farmers who update their subjective expectations about yields with fertilizer + lime more are also more likely to increase the amount of lime that they order. In Table \ref{tab:A2lime}, we see that updating the subjective mean of the fertilizer + lime distribution upwards is associated with higher lime orders after playing the game, but this effect is not significant. There is also no significant effect in the percentage change of the coefficient of variation.
+% 
+% does it flow better to lead with whether farmers who update their beliefs order more lime? 
+ 
+\input{tables/C2order_updated.tex}
+
+
+% \begin{comment}
+% \input{tables_comment/C2order_dk.tex}
+
+% \input{tables_comment/A2lime.tex}
+
+% \end{comment}
+
+We can similarly examine whether farming ability correlates with the amount of belief updating that takes place after interacting with the app. Table \ref{tab:C2beliefs} shows the results from this analysis, with the dependent variable being either the percentage change in the mean subjective yields for fertilizer (columns 1 and 3) or for fertilizer-plus-lime. Consistent with the results from Table \ref{tab:C2order}, we can see that farmers with more correct quiz answers seem to be more responsive to the intervention. This result is robust to controlling for the number of quiz questions that farmers knew that they did not know (columns 3 and 4).
+
+Appendix \ref{sec:appendix-het} reports results for similar regressions in which we allow the extent of belief updating to vary by past experience with improved inputs, and by confidence. The evidence on confidence is somewhat sensitive to how we define confidence. A dummy variable for being overconfident is strongly associated with less belief updating for both distributions (fertilizer and fertilizer-plus-lime). The simple difference between the number of questions that farmers thought they got right and the number they did get right is also negatively correlated with belief updating of both subjective belief distributions. For past fertilizer use, we find that farmers who had used fertilizer more in the years prior to the baseline survey update their beliefs substantially less. We do not see much of a relationship between past experience and changes in the dispersion of the belief distributions (as measured by the coefficient of variation).
+
+\input{tables/c2beliefs.tex}
+
+
+% \begin{comment}
+%  \subsection{Formation and Evolution of Beliefs}
+
+% We begin by documenting that farmers’ prior experience with a technology shapes farmers’ their beliefs about the returns to the technology. First, we regress the coefficient of variation of farmers' prior beliefs on farmers' experience with fertilizer (See Table \ref{tab:A1dist}). We define past fertilizer experience as the number of seasons in which the farmer used inorganic fertilizer in the five years before the baseline survey. Alternately, we also define past fertilizer experience as the number of long rains in which the farmer used inorganic fertilizer in the five years preceding the baseline survey. From the results, we see that households who have more experience with fertilizer in the past have subjective belief distributions with a higher mean but with no difference in the coefficient of variation. 
+
+% % could move table A1dist to sup materials...
+
+% Since we are interested in learning, we then examine what factors seem to moderate the extent of updating in response to playing the game. Table \ref{tab:A1updating} presents results from regressions that analyze the effect of past fertilizer use on updating. It appears that farmers with less experience with fertilizer update their beliefs more than farmers with more experience with fertilizer. These results are significant for both the fertilizer and fertilizer + lime distributions. We also look at the effect of farmers' characteristics on belief updating, specifically confidence, ability, and risk preferences. Table \ref{tab:D5fert} presents results focusing on farming confidence. We see that confidence plays a role in the updating of beliefs. The percentage change in the mean of both distributions is lower for farmers who believed that they answered more quiz questions correctly than they did. Farmers whom we classify as overconfident update beliefs less. 
+
+% Farming ability, as measured by the number of quiz questions answered correctly, also correlates with updating (see Table \ref{tab:C2beliefs}). The number of quiz questions answered correctly is associated with larger belief updating for the mean of the subjective yields distribution for fertilizer and fertilizer and lime. The number of quiz questions to which respondents answered ``don’t know'' is also associated with updating beliefs. For these farmers, the number of quiz questions that they do not know the answer to is positive and significant for updating beliefs, but the magnitude is smaller than for questions answered correctly. 
+
+% %Finally, we analyze the effect of risk preferences on belief updating and present results in Table \ref{tab:D5fert_risk}. The coefficients on the measures of risk aversion are positive but not significant. The magnitudes are also larger for the fertilizer + lime distribution. 
+
+
+% \input{tables_comment/A1dist.tex}
+
+% \end{comment}
+
+
+\subsection{What Influences Experimentation?}
+
+Finally, we are interested in exploring the factors that influence how farmers interact with the game. Do farmers experiment more with unfamiliar inputs, now that it is relatively costless to do so? Do they continue experimenting more with it if they find that it has positive returns? We see in Figure \ref{fig:games_dapcanlime.pdf} that the pH of a farmer's field is not strongly associated with the share of rounds played with either DAP or CAN (panels A and B). In contrast, the pH of a farmer's field has a strong negative association with the share of rounds in the game played with a positive amount of lime, as shown by the steep negative gradient on panel C. While most farmers experimented with lime in at least one round, this suggests that the farmers whose fields most needed lime also experimented more with the input in the game---perhaps to get a clearer sense of the shape of the marginal returns to the input. Appendix \ref{sec:appendix-game_dapcanlime} shows the regressions associated with Figure \ref{fig:games_dapcanlime}.
+
+\begin{figure} [htbp]
+\caption{Average share of rounds played with non-zero input amounts, by soil pH} 
+\label{fig:games_dapcanlime}
+\hspace{-.5cm} \centerline{\includegraphics[width=1.27\textwidth]{figures/games_dapcanlime.pdf}}
+ \end{figure}
+
+%We see in Table \ref{tab:A3_game} that the pH of a farmer's field is not strongly associated with the share of rounds played with positive amounts of CAN within the game and there is not a clear pattern across binned pH values. In contrast, the pH of a farmer's field has a strong negative association with the share of rounds in the game played with a positive amount of lime.
+
+% \begin{comment}
+% \input{tables/A3_game.tex}
+% \end{comment}
+
+We also analyze how farmers' previous experience with inputs affects how they interact with the game. What share of rounds do people play with unfamiliar inputs, and does confidence affect this? Tables \ref{tab:D1dap}-\ref{tab:D1lime} show the how confidence correlates with the share of rounds played with familiar and unfamiliar inputs. Across the input types and specifications, we observe that farmers who answered more quiz questions correctly experiment more with all the inputs (at the extensive margin). This may be a signal of more sophisticated experimentation aimed at understanding the interaction of inputs (as opposed to the returns to a single input at a time) or of a greater general propensity to experiment. Confidence does not appear to be strongly associated with the share of rounds played with DAP or CAN, regardless of how we specify confidence. For lime, the percentage difference between the number of quiz questions that a farmer believes she answered correctly and the number that she actually answered correctly is negative and significant. We do not read too much into this since the magnitude of the point estimate is small and the other specifications are insignificant. 
+%Although confidence does not appear to play a role in the share of different inputs chosen in the game, it may affect how farmers play through the game. Are more confident farmers less likely to change their final order once they place it? When we use the full sample, including farmers that were not recorded as playing a final round and therefore receive a value of zero for multiple final rounds, we find that farmers who answer more quiz questions correctly (greater ability) are less likely to play multiple rounds (see Table \ref{tab:B2a}). Overconfident farmers are also less likely to play multiple final rounds.
+
+\input{tables/D1dap.tex}
+
+\input{tables/D1can.tex}
+
+\input{tables/D1lime.tex}
+
+
+% \begin{comment}
+% \input{tables_append/HB2a_edited.tex}
+% \end{comment}
+
+\clearpage
+
+
+
+ \section{Conclusion}\label{sec:conclusion}
+Of the many constraints and impediments to agricultural technology adoption among poor producers, one of the most fundamental is the challenge they face when trying to learn about the properties and performance of a new technology. This learning challenge stems from pronounced heterogeneity in the returns to agricultural technologies. A number of factors drive heterogeneity, including complex interactions with other inputs and local production conditions, stochasticity of the production settings in which these farmers operate, and farmers' own limited ability to proactively experiment in ways that generate useful knowledge about the returns to the technology in their specific case. In such contexts, simply providing information about a technology may be insufficient to overcome information gaps. 
+
+In particular, producers' mental models shape their expectations of the production relationships they seek to manage and optimize. If the goal of information interventions is to change expectations, it may therefore be important to induce the kind of learning that changes these mental models. Learning that changes mental models and subsequent behavior demands active engagement and discovery. In this paper, we explore the possibility and efficacy of such engaged learning and discovery through a virtual platform that enables farmers to proactively experiment with agricultural inputs on virtual plots calibrated to match their own. 
+
+Using incentive-compatible input orders and subjective expectations elicitation techniques, we find that farmers revise their beliefs about input returns upwards after interacting with a platform designed as a virtual maize farming app. More specifically, farmers with acidic soils who are best positioned to benefit \emph{ex ante} from a new, unfamiliar input discover this opportunity purely as a result of playing repeated and riskless virtual seasons on the app. This encouraging learning response emerges as these likely beneficiaries engage in more intensive, more intentional experimentation with the new input on the virtual platform. 
+
+Although this work is but an initial step towards a better understanding of the potential role of virtual learning platforms in complex settings such as smallholder agriculture, it nonetheless raises several intriguing possibilities in broader development contexts. Could the introduction of virtual learning platforms and the application of gamification principles enhance learning and productivity in other contexts? The spread of simple cell phones into rural areas of poor countries opened new options for building adult literacy \citep{aker2012can}. The steady expansion of enhanced ICT services delivered by smart phones and other internet-enabled devices into such places will create new commercial opportunities for improved market access, reduced transaction costs and enhanced information flows and entertainment. As such, these new ICT tools may have relevance well beyond formal classroom applications. By leveraging these opportunities to offer new ways of learning and discovering, gamified virtual platforms with accessible user interface designs could become a potent tool for a wide array of adult education and vocational training objectives.
+
+Such discovery and learning platforms could also directly shape supply chains. Poorly developed supply chains and poorly integrated input and output markets are often prominent constraints to agricultural technology adoption. If a platform like the one we prototype and test in this paper could be integrated into local supply chains for improved agricultural inputs, it might help to stimulate demand for inputs and generate useful information about demand heterogeneity to potential suppliers. Although potentially complex, such coordination and integration with suppliers is a natural extension of the kind of ICT services that are beginning to proliferate among smallholder farmers.  
+
+We find encouraging results for a specific agricultural input in a particular context, but the underlying principles of engaged, self-directed discovery could clearly apply to a much broader set of learning contexts. The diffusion of bandwidth and connected devices into previously unconnected places sets the stage for tapping these broader opportunities to shape mental models and the expectations they generate. Since this level of learning is fundamental to improved decision making, these opportunities raise a host of important practical possibilities as well as economic questions with clear policy relevance. 
+
+
+ \newpage
+
+\bibliographystyle{plainnat} % or try abbrvnat or unsrtnat
+\bibliography{Confidence_BeliefUpdating}
+
+\newpage
+\appendix 
+\addcontentsline{toc}{section}{Appendices}
+\renewcommand{\thesection}{\Alph{section}}
+
+\section*{Appendices}
+\section{\textit{MahindiMaster} Design Details}\label{sec:appendix-design}
+\setcounter{table}{0}
+\renewcommand{\thetable}{\Alph{section}\arabic{table}}
+
+\textit{MahindiMaster} was built using the crop modeling software DSSAT. DSSAT uses plot-level soil characteristics and historical weather to simulate yields under different fertilizer types and application rates. We calibrated each simulation based on soil samples  from farmers' fields (collected in October 2016). An ISO-certified laboratory analyzed these soil samples. We also connect historical weather data from AgMERRA to the field's GPS location to identify low, medium, and high rainfall scenarios. 
+
+DSSAT requires some soil information that we could not get from our soil samples. We therefore supplement the soil sample data with soil characteristic information from Africa Soil Information Service (AfSIS), which provides estimates of soil characteristics for 250x250m grids across the African continent. Data for calcium, CEC, potassium, phosphorus, and pH come from our soil samples, while bulk density, stones (\%), clay (\%), silt (\%), and nitrogen come from the AfSIS data. We use the median value from 22 WISE profiles from Kenya for the lower limit of plant extractable soil water, drained upper limit, saturated upper limit, albedo, evaporation limit, drainage rate, runoff curve number, mineralization factor, and soil fertility factor. Finally, we set saturated hydraulic conductivity to 0.06. 
+
+DSSAT also requires daily rainfall, maximum temperature, minimum temperature, and solar radiation. We categorize rainfall into three categories based on historical data, classifying poor rainfall as the 35th percentile of historical rainfall, medium rainfall as the median historical rainfall, and good rainfall as the 60th percentile of historical rainfall. We use the median daily value for temperature and solar radiation. DSSAT models the effect of nitrogen and phosphorus applications but cannot simulate the effect of potassium or lime. We therefore manually input the lime applications into DSSAT, with each 250kg application corresponding to a .135 increase in soil pH.
+
+We vary application rates for DAP and CAN between 0 to 125kg per acre in steps of 25kg. Lime is applied in much larger quantities, so we allow it to vary between 0 to 2000kg in 250kg steps. We simulate yields under all combinations of DAP, CAN, and lime and the three weather scenarios, resulting in 972 yield simulations per household.
+
+\newpage
+\section{Do effects vary by confidence and fertilizer experience?}\label{sec:appendix-het}
+\setcounter{table}{0}
+\renewcommand{\thetable}{\Alph{section}\arabic{table}}
+\input{tables_append/D5fert.tex}
+\newpage
+
+\input{tables_append/A1updating.tex}
+\newpage
+\section{Correlations between pH, orders, and in-game behavior}\label{sec:appendix-game_dapcanlime}
+\setcounter{table}{0}
+\renewcommand{\thetable}{\Alph{section}\arabic{table}}
+
+\input{tables_append/ph_dapcanshare}
+\input{tables_append/games_dapcanlime}
+
+\clearpage
+\section{Online appendix: Pre-analysis plan and results}\label{sec:appendix-PAP}
+\setcounter{table}{0}
+\renewcommand{\thetable}{\Alph{section}\arabic{table}}
+
+For transparency, this appendix (meant for an online appendix) presents the complete set of results that were part of the pre-analysis plan but excluded from the body of the paper. Tables \ref{tab:hyp_A}-\ref{tab:hyp_D} summarize the pre-specified hypotheses. In each table, column (4) shows the expected sign of each hypothesis (if pre-registered), and column (5) reports the actual results. For the hypotheses in Table \ref{tab:hyp_D}, we did not have clear priors on signs, but wanted to register that these were hypotheses we wanted to explore. Since some hypotheses are reported elsewhere in the paper, the last column of each table notes where the results for each hypothesis can be found, either in the appendix or in the paper.\footnote{In Table \ref{tab:hyp_A}, hypothesis A4a is greyed out because we were unable to test this hypothesis. The hypothesis described a ``sanity check,'' which we had not clearly defined what it meant in the pre-analysis plan. We therefore do not test it but leave the row in the table for transparency.}
+
+The full pre-analysis plan for this study can be found at the \href{http://ridie.3ieimpact.org/index.php?r=search/detailView&id=528}{Registry for International Development Impact Evaluations (RIDIE)}. The sections below explain the hypotheses in more detail and display the full results for each of the hypotheses. 
+
+
+\input{tables_append/A_hypothesis.tex}
+\input{tables_append/B_hypothesis.tex}
+\input{tables_append/C_hypothesis.tex}
+\input{tables_append/D_hypothesis.tex}
+
+
+\subsubsection*{Hypothesis A1}
+\textit{For DAP and CAN, we expect farmers who have less past experience with these two fertilizers (as observed in the RCT the panel data) to have more diffuse prior beliefs than farmers who have used these fertilizer extensively in the past. We expect that farmers with less
+experience and/or more diffuse priors will update their beliefs more after playing the game.} 
+
+As a descriptive statistic related to hypothesis A1, we examine the correlations between farmers' past experience with fertilizer (as well as DAP or CAN individually) and their beliefs about returns to fertilizer. The test of the updating hypothesis can be found in Table \ref{tab:A1updating} and how they update their beliefs.  We define past fertilizer experience as the number of seasons in which the farmer used inorganic fertilizer in the five years before the baseline survey. Alternately, we also define past fertilizer experience as the number of long rains in which the farmer used inorganic fertilizer in the five years preceding the baseline survey.
+From the results, we see that households who have more experience with fertilizer in the past have subjective belief distributions with a higher mean but with no difference in the coefficient of variation.  
+
+\input{tables_comment/A1dist.tex}
+
+\newpage
+\subsubsection*{Hypothesis A2}
+\textit{We expect that farmers who update their beliefs about the returns to fertilizer and/or lime after playing the game will be more likely to change their fertilizer “order” after playing the game.} 
+
+We test how updating beliefs is associated with farmers' fertilizer orders. To measure updating, we use the percent change of the mean and coefficient of variation of the subjective yields distribution for fertilizer and for fertilizer and lime. We find that updating beliefs decreases the value of the DAP order, but it increases for farmers that are currently using DAP or CAN. Updating beliefs is not correlated with the value of CAN orders. This order is only affected negatively if farmers are currently using DAP or CAN for updates in the subjective yield distribution for fertilizer. Lime orders increase as a result of updating the subjective yields distribution for fertilizer and lime. 
+
+\input{tables_append/HA2int_dap_pctchange_edited.tex}
+\input{tables_append/HA2int_can_pctchange1_edited.tex}
+\input{tables_append/HA2int_lime_diff1_edited.tex}
+
+\newpage
+\subsubsection*{Hypothesis A3}
+\textit{We expect farmers whose ex ante predicted returns to lime (low pH on their field) are high will allocate a greater share of their budget to lime after playing the game than those with low expected returns to lime.}\\
+The result for this hypothesis is presented in Table \ref{tab:A3}
+
+\subsubsection*{Hypothesis A4a}
+\textit{We expect farmers for whom the sanity check fails to update their beliefs (and orders) less than those whose sanity check is accurate.}
+\noindent We were unable to create the necessary variables to test this hypothesis.
+
+\newpage
+\subsubsection*{Hypothesis A4b}
+\textit{We expect farmers who do not feel that the game reflects their reality to be less likely to update their beliefs.}\\
+Yields and planting sequences that are very different from reality does not have a significant effect on updating of the fertilizer distribution. Farmers who believe that yields in the game were much higher or higher than in real life update beliefs more than those who believe that yields in the game were the same as real life. Larger differences between the planting sequence in the game and real life are also associated with more updating. These results hold for updating of the fertilizer and lime distribution with the exception of yield perceptions, which are not longer significant. 
+
+\begin{comment}
+We also look at how perception of the accuracy of the game affect the farmers' orders. We see no effect on DAP or lime orders. We do see significant changes in the absolute value of the percent change in the order value of can for farmers who perceive the planting sequence to be slightly different and very different. 
+\end{comment}
+
+\input{tables_append/HA4b_abs_cmean_pctchange_edited.tex}
+\input{tables_append/HA4b_abs_dmean_pctchange_edited.tex}
+\begin{comment}
+\input{tables_append/HA4b_abs_dap_pctchange_edited.tex}
+\input{tables_append/HA4b_abs_can_pctchange_edited.tex}
+\input{tables_append/HA4b_abs_lime_diff_edited.tex}
+\end{comment}
+
+\newpage
+\subsubsection*{Hypothesis B1}
+\textit{The number of rounds that farmers play in the game (pre-final round) is expected to be decreasing in the participant’s measured confidence.}
+\noindent We use a farming quiz to create a measure of confidence for farmers. Farmers were asked a series of ten questions related to general maize farming knowledge. After answering the questions, farmers were asked how many questions they believed that they answered correctly. We compare the number of questions that farmers answered correctly to the number of questions farmers believed that they answered correctly. If farmers got the same number of quiz questions correct as they reported believing they got correct within one question (i.e. if the farmer thought he answered 6 correct but only answered 5 correct), we consider the farmer appropriately confident. If the farmer believes he answered more questions correctly than he did and the difference is greater than one, we consider the farmer overconfident. If the farmer believes that he answered fewer questions correctly than he did and the difference is greater than one, we consider the farmer underconfident. We only have two farmers that are classified as underconfident in the sample. We create a dummy variable that equals one if the farmer is overconfident and zero otherwise. 
+
+We see that overconfident farmers play more rounds in the game (pre-final round). This result is only marginally significant. 
+
+\input{tables_append/HB1_edited.tex}
+\newpage
+
+\subsubsection*{Hypothesis B2a}
+\textit{We expect more confident farmers to be less likely to want to tweak their order (i.e. more likely to only play one final round).}
+
+\noindent From the results, we see that overconfidence is not correlated with the number of final rounds played. Farmer self-doubt is positively correlated with the number of final rounds played; indeed, having more frequent self-doubt increases the probability of playing multiple final rounds.
+\input{tables_append/HB2a_edited.tex}
+\input{tables_append/HB2a_any_edited.tex}
+\newpage
+\subsubsection*{Hypothesis B2b}
+\textit{Conditional on tweaking their “final order” once, we expect the number final rounds played (i.e. the number of tweaks to the final order) to be decreasing in measured farmer confidence. }\\
+There are too few farmers that played multiple final rounds to conduct this analysis. 
+
+\newpage
+\subsubsection*{Hypothesis B3}
+\textit{The number of rounds played by farmers in the game (pre-final round) is increasing in risk aversion.}\\
+Risk aversion does not appear to significantly affect the number of pre-final rounds played. The point estimates on risk aversion are positive as expected but not significant. Farmers who are risk loving play fewer rounds.
+\input{tables_append/HB3_edited.tex}
+
+\newpage
+\subsubsection*{Hypothesis B4}
+\textit{The number of low-rainfall weather scenarios chosen is increasing in risk aversion.}\\
+Risk aversion does not appear to affect the number of low rainfall scenarios chosen. Risk aversion, as measured by the survey questions, is associated with fewer low rainfall scenarios chosen, but the point estimate is -.05 rounds, which is very close to zero. 
+
+\input{tables_append/HB4_edited.tex}
+
+\newpage
+\subsubsection*{Hypothesis B5}
+\textit{The share of rounds played with unfamiliar inputs is increasing in risk aversion.}\\
+We test the effect of risk aversion on the share of rounds played with unfamiliar inputs. Most point estimates are positive but not significant. Choosing the safe option for the practice question in the lottery is associated with an increase of .10 in the share of rounds played with CAN, and being risk loving is associated with an increase of .12 in the share of rounds with CAN. We see larger increases for risk loving farmers for the share of rounds played with lime. 
+
+\input{tables_append/HB5_edit.tex}
+\input{tables_append/HB5_lime_edited.tex}
+
+\newpage
+\subsubsection*{Hypothesis B6}
+\textit{The number of times the final fertilizer order is changed is increasing in risk aversion.}\\
+The results suggest that the number of times the final fertilizer order is changed is decreasing in risk aversion. 
+
+\input{tables_append/HB6_edit.tex}
+
+\newpage
+\subsubsection*{Hypothesis C1}
+\textit{We expect farmers who play fewer rounds of the game to be less likely to update their beliefs and fertilizer orders.}\\
+The total number of rounds played does not have a significant effect on the updating of the subjective yields distribution. The results show that the total number of rounds played increases the change in the order, in terms of value, for DAP and CAN and decreases the share of the order allocated to DAP. 
+
+\input{tables_append/HC1_edited.tex}
+
+\subsubsection*{Hypothesis C2}
+\textit{We expect farmers with a higher stated farming ability to be less likely to update their beliefs and fertilizer orders because they will be less responsive to information.} \\
+The results for these hypotheses are presented in  Tables  \ref{tab:C2order} and \ref{tab:C2beliefs}.  
+
+\newpage
+\subsubsection*{Hypothesis D1}
+\textit{It is not clear how confidence affects the share of rounds played with unfamiliar inputs. } \\
+The results for this hypothesis is presented in Tables
+\ref{tab:D1dap}-\ref{tab:D1lime}
+
+\subsubsection*{Hypothesis D2}
+\textit{It is not clear how confidence affects the proportion of rounds spent in the regular game versus the final round.} \\
+Overconfident farmers spend more rounds on the regular game relative to the final round. 
+
+\input{tables_append/HD2_reg_edited.tex}
+
+\newpage
+\subsubsection*{Hypothesis D3}
+\textit{It is unclear how risk aversion affect the probability of changing the final fertilizer order.} \\
+The probability of changing the final order appears to be decreasing in risk aversion and is negatively correlated with being risk loving as measured through the survey questions.
+\input{tables_append/HD3_edited.tex}
+
+\subsubsection*{Hypothesis D4}
+\textit{It is unclear how risk aversion affects the proportion of rounds spent in the regular game versus the final round.} \\
+The proportion of rounds spent in the regular game appears to be increasing in risk aversion.
+
+\input{tables_append/HD4_reg_edited.tex}
+
+\newpage
+
+\subsubsection*{Hypothesis D5}
+\textit{We will also evaluate if farmers update beliefs differently along the following dimensions: risk preferences, confidence, subjective confidence.}\\
+Risk does not have a significant effect on the updating of beliefs. \\
+Table \ref{tab:D5fert} shows the results for confidence
+
+
+\input{tables_append/HD5_abs_cmean_pctchange_risk_edited.tex}
+\input{tables_append/HD5_abs_dmean_pctchange_risk_edited.tex}
+\end{document}
