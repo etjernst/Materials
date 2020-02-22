@@ -4,7 +4,7 @@ program define customsave
 args description dataname dofilename filepath
 
 * Macro with today's date
-    local today "`'c(current_date)'"
+    local today "`c(current_date)'"
 
 * Label data with a short description & today's date
     label data "`description' | `today'"
