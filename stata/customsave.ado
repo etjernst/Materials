@@ -5,9 +5,10 @@
     /* labels data and saves it
      - takes the following arguments:
      + description (in "quotes")
-     + dataname (name of the data set you are saving)
-     + dofilename (the .do file that is saving the data)
-     + filepath (filepath to save in) */
+     + dofilename (the .do file that is saving the data) 
+     + filename (name of the data set you are saving)
+     + filepath (filepath to save in) 
+     + name or initials of user */
 * **********************************************************************
 
 cap prog drop customsave
@@ -22,8 +23,8 @@ args description dofilename filename filepath user
     label data "`description' | created using `dofilename' | last modified:  `today' by `user'" 
 
 * Add a note to the data note
-    note: `dataname' | created using `dofilename' | modified `today' by `user'
+    note: `filename' | created using `dofilename' | modified `today' by `user'
 
 * Save the data set in `filepath'
-    save "`filepath'/`dataname'", replace
+    save "`filepath'/`filename'", replace
 end
