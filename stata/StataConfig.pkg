@@ -1,0 +1,10 @@
+v 0.1
+d
+d 'StataConfig': some basic ado files
+d
+d Distribution-Date: 20200401
+d
+d Author: Emilia Tjernström
+d Support: emilia.tjernstrom@sydney.edu.au
+d
+f customsave.ado
