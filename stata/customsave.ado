@@ -19,8 +19,10 @@ args description dofilename filename filepath user
     local today "`c(current_date)'"
 
 * Label data
-    label data "`description' | created using `dofilename' | ///
-    last modified:  `today' by `user'"
+    #delimit ;
+    label data "`description' | created using `dofilename' |
+    last modified:  `today' by `user'" ;
+    #delimit cr
 
 * Add a note to the data note
     note: `dataname' | created using `dofilename' | modified `today' by `user'
