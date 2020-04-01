@@ -1,20 +1,18 @@
 *! version 2.0.1 01apr2020  Emilia Tjernström
 
 * **********************************************************************
-* 1 - Program customsave
-    /* labels data and saves it
-     - takes the following arguments:
-     + description (in "quotes")
-     + dofilename (the .do file that is saving the data)
-     + filename (name of the data set you are saving)
-     + filepath (filepath to save in)
-     + name or initials of user */
-* **********************************************************************
 
 cap prog drop customsave
 
 program customsave , rclass
-    syntax , IDVARname(varlist) DOFILEname(string) [DESCription(string) user(string) noidok path()] using filename
+    syntax , IDVARname(varlist) filename(string) DOFILEname(string) [description(string) user(string) path(string) noidok]
+
+    di "`idvarname'"
+    di "`filename'"
+    di "`dofilename'"
+    di "`description'"
+    di "`user'"
+    di "`path'"
 
     qui {
 		preserve
