@@ -7,12 +7,8 @@ cap prog drop customsave
 program customsave , rclass
     syntax , IDVARname(varlist) filename(string) DOFILEname(string) [description(string) user(string) path(string) noidok]
 
-    di "`idvarname'"
-    di "`filename'"
-    di "`dofilename'"
-    di "`description'"
-    di "`user'"
-    di "`path'"
+    di " with do file `dofilename' by user `user' using computer `c(hostname)'"
+
 
     qui {
 		preserve
@@ -45,16 +41,16 @@ program customsave , rclass
 
     * 2 - check for duplicates in idvarname
 		// Test duplicates
-		tempvar dup
+		tempvar mydup
 
         * Count how many duplicates there are
-		duplicates tag `idvarname', gen(`dup')
-		count if `dup' != 0
+		duplicates tag `idvarname', gen(`mydup')
+		count if `mydup' != 0
         local dupnumber = `r(N)'
 		if r(N) > 0 {
 			sort `idvarname'
-			noi di as error "{phang}The ID variable `idvarname' has duplicate observations in `dupnumber' values:{p_end}"
-			noi list `idvarname' if `dup' != 0
+			noi di as error "{phang}The ID variable `idvarname' has duplicate observations in `dupnumber' values:{p_end} "
+			noi list `idvarname' if `mydup' != 0
 		}
 		noi di ""
 		error 148
@@ -65,7 +61,7 @@ program customsave , rclass
     }
 
 * **********************************************************************
-* Metadata
+* Metadata output
 	* Store the name of idvar in dataset characteristics and in notes
 		char  _dta[config_idvar] "`idvarname'"
         if "`noidok'" != "" {
@@ -74,7 +70,7 @@ program customsave , rclass
 
 	* Store Stata version that generated the data
 		char  _dta[config_version] "`origversion'"
-		local versOut "This data set was created with .do file `dofile'"
+		local versOut "This data set was created with .do file `dofilename'"
 
 	* Date
 		char  _dta[config_date] "`c(current_date)'"
@@ -87,7 +83,11 @@ program customsave , rclass
         }
 		char  _dta[config_host] "`c(hostname)'"
 		local userOut " by user `user' using computer `c(hostname)'"
-		}
+
+    * More description
+        if "`description'" != "" {
+            local descOut " | Further description: `description'""
+        }
 
 * **********************************************************************
 * 5 - Add metadata (data label and notes) and save
@@ -98,7 +98,7 @@ program customsave , rclass
     label data "`versOut' `dateOut' `userOut'"
 
     * Add a note to the data (useful for tracking edits over time)
-    note: Dataset `filename' | `versOut' `dateOut' `userOut' | Further description: `description'
+    note: Dataset `filename' | `versOut' `dateOut' `userOut' `descOut'
 
     * Save
     save "`path'/`filename'", replace
