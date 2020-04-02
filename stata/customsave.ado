@@ -49,8 +49,10 @@ local isid_rc = _rc
         local dupnumber = `r(N)'
 		if r(N) > 0 {
 			sort `idvarname'
-			noi di as error "{phang}The ID variable `idvarname' has duplicate observations in `dupnumber' values. Specifying the {it:noidok} option will let you proceed, but it's not good practice. These are the duplicates:{p_end} "
-			noi list `idvarname' if `mydup' != 0
+            if "`noidok'" != "" {
+                noi di as error "{phang}The ID variable `idvarname' has duplicate observations in `dupnumber' values. Specifying the {it:noidok} option will let you proceed, but it's not good practice. These are the duplicates:{p_end} "
+			    noi list `idvarname' if `mydup' != 0
+            }
 		}
 		noi di ""
         if "`noidok'" != "" {
