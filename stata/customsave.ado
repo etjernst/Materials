@@ -5,10 +5,9 @@
 cap prog drop customsave
 
 program customsave , rclass
-    syntax , IDVARname(varlist) filename(string) DOFILEname(string) [description(string) user(string) path(string) noidok]
+    syntax , IDVARname(varlist) filename(string) path(string) DOFILEname(string) [description(string) user(string) noidok]
 
     di " with do file `dofilename' by user `user' using computer `c(hostname)'"
-
 
     qui {
 		preserve
@@ -26,47 +25,47 @@ program customsave , rclass
 * **********************************************************************
 * Test potential issues with id variable
 
-    * 1 - check whether idvarname uniquely identifies observations in the data
-    capture isid `idvarname'
-    if _rc {
+* 1 - check whether idvarname uniquely identifies observations in the data
+qui: capture isid `idvarname'
+local isid_rc = _rc
+
+    if (`isid_rc') {
         // Test missing
-        capture assert !missing(`idvarname')
+        qui: capture assert !missing(`idvarname')
     		if _rc {
-                if "`noidok'" != "" {
-        			count if missing(`idvarname')
-        			noi di as error "{phang}`r(N)' observation(s) are missing the ID variable `idvarname'. If you want to allow this, specify the noid option but what does that mean?"
-        			noi di ""
-                }
-    		}
+    			count if missing(`idvarname')
+    			noi di as error "{phang}`r(N)' observation(s) are missing the ID variable `idvarname'. Specifying the {it:noidok} option will let you proceed, but it's not good practice."
+    			noi di ""
+            }
+	}
 
     * 2 - check for duplicates in idvarname
 		// Test duplicates
 		tempvar mydup
 
-        * Count how many duplicates there are
-		duplicates tag `idvarname', gen(`mydup')
-		count if `mydup' != 0
+    * Count how many duplicates there are
+		qui: duplicates tag `idvarname', gen(`mydup')
+		qui: count if `mydup' != 0
         local dupnumber = `r(N)'
 		if r(N) > 0 {
 			sort `idvarname'
-			noi di as error "{phang}The ID variable `idvarname' has duplicate observations in `dupnumber' values:{p_end} "
+			noi di as error "{phang}The ID variable `idvarname' has duplicate observations in `dupnumber' values. Specifying the {it:noidok} option will let you proceed, but it's not good practice. These are the duplicates:{p_end} "
 			noi list `idvarname' if `mydup' != 0
 		}
 		noi di ""
-		error 148
-		exit
-	}
+        if "`noidok'" != "" {
+            error 148
+            exit
+        }
+
 
     restore
-    }
 
 * **********************************************************************
 * Metadata output
 	* Store the name of idvar in dataset characteristics and in notes
 		char  _dta[config_idvar] "`idvarname'"
-        if "`noidok'" != "" {
             local idOut "Observations in this data set are identified by `idvarname'. "
-        }
 
 	* Store Stata version that generated the data
 		char  _dta[config_version] "`origversion'"
