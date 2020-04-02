@@ -9,7 +9,7 @@ program customsave , rclass
 
     di " with do file `dofilename' by user `user' using computer `c(hostname)'"
 
-    qui {
+qui {
 		preserve
         local origversion "`c(version)'"
 		version 16.0
@@ -101,5 +101,5 @@ local isid_rc = _rc
 
     * Save
     save "`path'/`filename'", replace
-
+}
 	end
