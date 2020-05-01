@@ -7,8 +7,6 @@ cap prog drop customsave
 program customsave , rclass
     syntax , IDVARname(varlist) filename(string) path(string) DOFILEname(string) [description(string) user(string) noidok]
 
-    di " with do file `dofilename' by user `user' using computer `c(hostname)'"
-
 qui {
 		preserve
         local origversion "`c(version)'"
@@ -94,8 +92,6 @@ local isid_rc = _rc
 * 5 - Add metadata (data label and notes) and save
 
     char _dta[config_boilsave] "`idOut'`versOut' `userOut'`dateOut'"
-    display "`idOut' `versOut' `userOut' `dateOut'"
-
     label data "`versOut' `dateOut' `userOut'"
 
     * Add a note to the data (useful for tracking edits over time)
@@ -104,4 +100,6 @@ local isid_rc = _rc
     * Save
     save "`path'/`filename'", replace
 }
+    display "`idOut' `versOut' `userOut' `dateOut'"
+
 	end
