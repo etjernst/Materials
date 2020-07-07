@@ -5,6 +5,7 @@ show_title: false
 ---
 
 # Index
+* [Before we start](#before-start)
 * [Git basics](#git-basics)
 * [Git vocab](#git-vocab)
 * [Basic workflow](#basic-workflow)
@@ -14,17 +15,37 @@ show_title: false
 * [Branches](#introducing-branches)
 
 
+## <a name="before-start">Before we start</a>
+
+Before embarking on this tutorial, you need two things:
+1. A [GitHub](https://github.com) account
+  > Make sure that I have added you as a collaborator to the repository called [Tutorials](https://github.com/etjernst/Tutorials).
+  If you are logged in to GitHub but clicking on this link takes you to a 404 error page, then most likely you are not a contributor yet  :smile:
+
+2. You need to install a git client on your computer.
+  > When you download the relevant install [here](https://git-scm.com/downloads), you should automatically get git bash. This tutorial will use git bash, but you can find tons of other options [here](https://git-scm.com/downloads/guis). Some people like
+
+3. _Recommended:_ Read ["Code and Data for the Social Sciences"](https://web.stanford.edu/~gentzkow/research/CodeAndData.pdf)
+
 ## <a name="git-basics">Git basics - what is this thing?</a>
 
-* The most popular version control system. Basically, if Dropbox and the "Track changes"
+Git is the most popular version control system. Basically, if Dropbox and the "track changes"
 feature in MS Word had a baby, Git would be that baby.
-* In fact, it's even better than that! Git is optimised for the things that economists and data scientists
+
+In fact, it's even better than that!
+Git is optimized for the things that applied economists
 spend a lot of time working on (e.g. code).
-* There is a learning curve, but I _promise_ you it's worth it (and it will look great in grad school applications!)
-* _Git_ and [_GitHub_](github.com) are not the same things:
-    * GitHub is an online hosting platform that provides an bunch of services built on top of the Git system.
-    * You don't _need_ GitHub to use Git... But it will likely make your life much easier!
-* The great thing about git is how much easier it makes transparency and reproducibility in research.
+There is a learning curve, but it's worth it---your life will be changed for the better. _Really!_
+
+![](https://media.giphy.com/media/OK27wINdQS5YQ/giphy.gif){:height="75%" width="75%"}
+
+
+#### Git vs GitHub
+Git and [GitHub](github.com) are not the same:
+  * **Git** is a tool that makes collaboration infinitely better. It also greatly facilitates transparent and reproducible research.
+  * **GitHub** is an online hosting platform that provides an bunch of services built on top of the Git system.
+  > You don't _need_ GitHub to use Git... But it will change your life for the better!
+
 
 ## <a name="git-vocab">Git vocab & pre-recs</a>
 * Project = repository / _repo_
@@ -300,4 +321,4 @@ If you want to switch back to the master branch (or any other branch)<br>
 
 _Sources:_<br>
 * Grant McDermott's great [lecture notes](https://github.com/uo-ec607/lectures)
-* [Resources](https://github.com/worldbank/DIME-Resources) from the World Bank's DIME unit
+* Trainings and resources from the World Bank's DIME unit (both [here](https://github.com/worldbank/DIME-Resources) and [here](https://worldbank.github.io/dimeanalytics/git/))
