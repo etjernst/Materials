@@ -1,3 +1,9 @@
+---
+layout: article
+title: git
+show_title: false
+---
+
 # Index
 * [Git basics](#git-basics)
 * [Git vocab](#git-vocab)
@@ -10,12 +16,12 @@
 
 ## <a name="git-basics">Git basics - what is this thing?</a>
 
-* The most popular version control system. Basically, if Dropbox and the "Track changes" 
+* The most popular version control system. Basically, if Dropbox and the "Track changes"
 feature in MS Word had a baby, Git would be that baby.
 * In fact, it's even better than that! Git is optimised for the things that economists and data scientists
 spend a lot of time working on (e.g. code).
 * There is a learning curve, but I _promise_ you it's worth it (and it will look great in grad school applications!)
-* _Git_ and [_GitHub_](github.com) are not the same things: 
+* _Git_ and [_GitHub_](github.com) are not the same things:
     * GitHub is an online hosting platform that provides an bunch of services built on top of the Git system.
     * You don't _need_ GitHub to use Git... But it will likely make your life much easier!
 * The great thing about git is how much easier it makes transparency and reproducibility in research.
@@ -26,23 +32,23 @@ spend a lot of time working on (e.g. code).
   > I like to create the repo on GitHub and then clone it to whatever working directory you want to work out of.<br>
   > This means that the GitHub version is the remote origin folder and you are working in a copy on your computer.<br>
 * "Downloading" a repo to your local computer = _cloning_ the repo to your working directory
-  > Ok, so why is "downloading" in scare quotes?<br> 
-  > Well, the main difference between cloning and downloading is that when Git clones a repo, 
+  > Ok, so why is "downloading" in scare quotes?<br>
+  > Well, the main difference between cloning and downloading is that when Git clones a repo,
 it **remembers where you downloaded it from!**<br>
   > This is important because it means that git knows where to share any edits you make to files in the repo.<br>
   > More on how to clone below.
 * Folder location on your local computer = _working directory_
 * _Stage:_  before you commit you tell git what you want to commit by staging it (an intermediate step)
-* _Commit:_ git doesn’t make changes in its history (log) database unless we commit the files 
-(think of this as a "yes, I am sure I want to commit these changes" step -- 
+* _Commit:_ git doesn’t make changes in its history (log) database unless we commit the files
+(think of this as a "yes, I am sure I want to commit these changes" step --
 not that there are any dire consequences to committing, since you can always roll back to earlier versions)
-  > Now, _committing_ in your working directory is going to tell the little git creature* that 
+  > Now, _committing_ in your working directory is going to tell the little git creature* that
 you want to keep a record of what you just did. You commit to it.<br>
   > You should plan to commit every time you have completed something meaningful.<br> Some examples:<br>
   >  * "Created a master .do file"
-  >  * "Fixed bug in cleaning code"<br> 
+  >  * "Fixed bug in cleaning code"<br>
   > (\*) Anyway, that's how I think about it: a little gnome who watches what I do in the directory)<br>
-  > But if you are working with others, or you worry about your computer getting stolen with all 
+  > But if you are working with others, or you worry about your computer getting stolen with all
   > your precious work on it, then you may want to sync these changes with the origin repo on GitHub.<br>
   > This also means that your collaborators will be able to see what you have done.
 * Syncing your changes with the origin repo = _pushing_ them
@@ -50,7 +56,7 @@ you want to keep a record of what you just did. You commit to it.<br>
 
 ---
 ## Basic workflow
-The steps below outline the general workflow of git.<br> 
+The steps below outline the general workflow of git.<br>
 When you use them going forward you will replace the square brackets with the relevant info
 (without the square brackets) <br>
 1. **Make** changes to a file & save them in your local clone
@@ -68,7 +74,7 @@ When you use them going forward you will replace the square brackets with the re
 
 ## <a name="step-0">Step 0 (a) - Setting up the first time you use git</a>
 
-Open up git bash, which should have come with the git installation. 
+Open up git bash, which should have come with the git installation.
 
 Set your name, which will be attached to your commits: <br>
   `git config --global user.name "[yournamehere]"`<br>
@@ -77,28 +83,28 @@ Set your email<br>
 
 Check working directory (this will list where you are currently working)<br>
   `pwd` <br>
-To change the directory, you can either type in the location where you want to work or drag the folder into the bash window. 
-If your filepath has spaces in it, you need to start and end it with these little single commas: ' ' 
-   
+To change the directory, you can either type in the location where you want to work or drag the folder into the bash window.
+If your filepath has spaces in it, you need to start and end it with these little single commas: ' '
+
 ## <a name="cloning">Step 0 (b) - Clone the repo into a local directory on your computer</a>
- 
+
 The main repo with code will live on GitHub, and then we work on a local clone, pulling and pushing our changes to GitHub.
 We will not sync data to GitHub (only code). There are a few reasons for this:
-  * the only "real" data is the raw data. As such, we should always be able to get from that raw data to the 
-  analysis data using scripts (.do files in the case of Stata) -- so if you share data files with someone, 
+  * the only "real" data is the raw data. As such, we should always be able to get from that raw data to the
+  analysis data using scripts (.do files in the case of Stata) -- so if you share data files with someone,
   they should be able to take your scripts and reproduce your entire paper with the click of a button!
   * data files are binary so not very useful to version control
   * data files can be large, which will slow down syncing
 
-So, we need to make a local clone! This is basically a local copy of everything on GitHub, with its own git version control 
+So, we need to make a local clone! This is basically a local copy of everything on GitHub, with its own git version control
 keeping track of everything that you are doing.
 
-1. Set the working directory to where you want to work from (again, you can either type the filepath or drag and drop the 
+1. Set the working directory to where you want to work from (again, you can either type the filepath or drag and drop the
 folder onto the git bash window) _This can be anywhere on your local computer._<br>
   `cd [filepath/drag file]`
   or<br>
   `cd [localfilepath]`
-2. Tell git to clone everything that is on GitHub to a local directory 
+2. Tell git to clone everything that is on GitHub to a local directory
   `git clone [file_path_here]`    
   > replace [file_path_here] with https://github.com/etjernst/Tutorials.git<br>
   > (this will create a folder called Tutorials wherever you pointed to in the above command)<br>
@@ -107,9 +113,9 @@ folder onto the git bash window) _This can be anywhere on your local computer._<
   > replace [repo_name] with Tutorials
 <br>
 
-**Note that you don't need to follow all these steps every time you work, only the first time** 
+**Note that you don't need to follow all these steps every time you work, only the first time**
 **-- that's why I called these steps Step 0.** <br>
-Once you've done all this, you can just 
+Once you've done all this, you can just
 1. _pull_ (important to do this **before** you start working locally since these changes can get overwritten)
 2. work in your working directory
 3. save your work
@@ -126,42 +132,42 @@ You have probably used dropbox. How does it do version control? You can click on
 ![dropbox screenshot](https://github.com/etjernst/Materials/blob/master/dropbox.png "Dropbox screenshot")
 From this you can tell that I click Ctrl+S A LOT! But are all these meaningful differences?<br>
 
-Instead of having a list of each saved version of a file, in git you use commits to indicate what is each 
+Instead of having a list of each saved version of a file, in git you use commits to indicate what is each
 meaningful difference between two versions of our project folder.<br>
 <br>
-Each commit is a snap shot of all files in the project folder, and lists how that snapshot differs from 
+Each commit is a snap shot of all files in the project folder, and lists how that snapshot differs from
 the previous snapshot (i.e., the previous commit).<br>
 <br>
 Each commit has a time stamp and tracks who did the commit. This is similar to my old way of keeping track of things:
 naming each version of a file _YYMMDD docname INITIALS.doc_... but much better!<br>
 <br>
-In order to have multiple people working in the same repository, you also need to know how to _branch_, 
+In order to have multiple people working in the same repository, you also need to know how to _branch_,
 but first let's practice doing a little commit.<br>
 
-1. In your local clone, open up the README.md file in a text editor. 
+1. In your local clone, open up the README.md file in a text editor.
 It is in markdown format, but is easy to edit in any text editor.
-[Here](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) is a markdown cheat sheet 
+[Here](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) is a markdown cheat sheet
 if you want to try any more fancy things (and for future reference).<br>
-2. Under collaborators, add your name to the file. `<br>` tells markdown that you want a new line. 
+2. Under collaborators, add your name to the file. `<br>` tells markdown that you want a new line.
 3. Save the file.
-4. Using git bash, add a folder in the repo called Various using `mkdir Various`, which will create the folder in the working directory. 5. Create a folder inside Various with your name. As you probably guessed, you will type `mkdir Various/your_name`. 
+4. Using git bash, add a folder in the repo called Various using `mkdir Various`, which will create the folder in the working directory. 5. Create a folder inside Various with your name. As you probably guessed, you will type `mkdir Various/your_name`.
 6. Manually add a .do file to the folder called test.do (you can drag-and-drop, copy-paste, or "save as" or whatever other way you prefer).
   > You can add whatever you usually add at the top of .do files if you have a template of some kind.
 6. Go back into git bash.
-7. Check what changes have been made, by asking git the status of your local repository: `git status` 
+7. Check what changes have been made, by asking git the status of your local repository: `git status`
   > You should see the changes pop up
-8. _Stage_ the changes you just made in your local clone: `git add [file]` 
-  > Here \[file\] is the file you saw listed as changed above -- for now just add each file separately; 
+8. _Stage_ the changes you just made in your local clone: `git add [file]`
+  > Here \[file\] is the file you saw listed as changed above -- for now just add each file separately;
 later we'll learn to do this with shortcuts
   > You should see both the readme.md and your .do file show up when you type `git status`._
-9. _Commit_ these local changes to your git history (with a helpful message!): `git commit -m "[very helpful message]"` 
+9. _Commit_ these local changes to your git history (with a helpful message!): `git commit -m "[very helpful message]"`
   > This will tell git that you are serious about these changes and want to commit them to memory
-10. _Pull_ from the GitHub repo **just in case** anyone else made changes while you were working: `git pull` 
+10. _Pull_ from the GitHub repo **just in case** anyone else made changes while you were working: `git pull`
   > This will check if anyone else has made changes to the original repo (and is also why I introduce branches below)
 11. _Push_ your changes to the GitHub repo: `git push`
-12. Go to the repo that you cloned originally on GitHub. 
+12. Go to the repo that you cloned originally on GitHub.
   > Somewhere on the left near the top there's a link that says "# commits" (where # is a number)
-13. Click on your recent commit. What do you see? 
+13. Click on your recent commit. What do you see?
 
 
 > Hopefully that all goes well! If not, please feel free to shoot me emails with questions. <br>
@@ -176,12 +182,12 @@ Branches = time travel & parallel universes:
 * Branches enable different people to work on the same thing at the same time.
 * Branches enable you to view different versions of your files.
 * In fact, branching allows you to _move forwards or backwards in time_; and to move "horizontally" in time through various concurrent versions.
-* You can essentially take a snapshot of your existing repo and try out a whole new idea without affecting your main 
+* You can essentially take a snapshot of your existing repo and try out a whole new idea without affecting your main
 (i.e. "master") branch.
 * Once you (and your collaborators) are 100% satisfied, then you can merge this new test code back into the master branch.
 * This is how most new features in modern software and apps are developed but researchers can easily us it.
 * Say you want to try a new way of creating a variable and see how that changes results.
-You can do that in a branch in order to not mess up the master branch. 
+You can do that in a branch in order to not mess up the master branch.
   > If you like the result you can merge your experiment with the main version of the code.<br>
   > BUT if you aren't happy, then you can just delete the experimental branch and continue as if nothing happened.
 
@@ -204,13 +210,13 @@ Good practice is to use a few main branches:
 3. [user] or [feature] branches are frequent, specific, personal, and hold all new work
 <br>
 
-We will now start working with our main repo (instead of Tutorials). 
+We will now start working with our main repo (instead of Tutorials).
 Repeat the cloning step from above,  replacing file_path as relevant with the link to your repo<br>
 (you can get the link from going to the main page of the repo and clicking the green ``Clone or download`` button):
-   
+
 ## Clone the relevant repo into the working directory
 
-1. Set the working directory to where you want to work from (again, you can either type the filepath or drag and drop the 
+1. Set the working directory to where you want to work from (again, you can either type the filepath or drag and drop the
 folder onto the git bash window)<br>
   `cd [filepath/drag file]`
   or<br>
@@ -253,7 +259,7 @@ To try this out:
     > You should be able to open an empty text editor window and then save the file with the .md file extension.
 13. Type today's date and add a short summary of what you just did. Feel free to add any questions here too.
 14. Stage these changes, too.
-    > Remember, you can type `git status` to see what has changed.<br> 
+    > Remember, you can type `git status` to see what has changed.<br>
     > Then type `git add [filename]` to _stage_ the changes.<br>
 15. Commit your changes(with comments).
     > Remember, you commit using `git commit -m "[Helpful comments]"`<br>
@@ -264,7 +270,7 @@ To try this out:
 18. Go to our repo on GitHub and look for your changes. Do you see them?
 Look for a tab that says branches and switch to your branch. You should see them now.<br>
   > What do you see?
-   
+
 19. When you eventually want to merge your changes in to one of the main branches,
 you do this with a pull request. I find that easiest to do directly on GitHub actually.
   > I will then get a notification.
@@ -294,10 +300,4 @@ If you want to switch back to the master branch (or any other branch)<br>
 
 _Sources:_<br>
 * Grant McDermott's great [lecture notes](https://github.com/uo-ec607/lectures)
-* [Resources](https://github.com/worldbank/DIME-Resources) from the World Bank's DIME unit 
-
-
-
-
-
-
+* [Resources](https://github.com/worldbank/DIME-Resources) from the World Bank's DIME unit
